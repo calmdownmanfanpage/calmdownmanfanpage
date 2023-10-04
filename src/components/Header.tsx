@@ -7,6 +7,7 @@ export default function Header() {
     <>
       <StyledHeader>
         <StyledLink to={path.root}>홈</StyledLink>
+        <StyledLink to={path.example}>예시 페이지</StyledLink>
       </StyledHeader>
     </>
   );
