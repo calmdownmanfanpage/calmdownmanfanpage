@@ -17,12 +17,8 @@ export default function Header() {
           <StyledMenuWrapper isOpened={isOpened}>
             <StyledLink to={path.dongseon}>동선</StyledLink>
             <StyledLink to={path.jeongoon}>정운</StyledLink>
-            <StyledLink to={path.teahyeong}>태형</StyledLink>
-            <StyledLink to={path.soyeon}>소연</StyledLink>
             <StyledLink to={path.dahyeon}>다현</StyledLink>
-            <StyledLink to={path.gangsan}>강산</StyledLink>
-            <StyledLink to={path.choonghyeon}>충현</StyledLink>
-            <StyledLink to={path.minseong}>민성</StyledLink>
+            <StyledLink to={path.meme}>모든 밈들의 신</StyledLink>
           </StyledMenuWrapper>
           <StyledMenuButton onClick={handleOpenMenu} />
         </StyledContainer>
