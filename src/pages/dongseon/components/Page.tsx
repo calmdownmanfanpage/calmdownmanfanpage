@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import Content from './Content';
 
-export default function Page({children}) {
+export default function Page() {
     return (
       <>
         <StyledSection onClick={(e)=>{
@@ -15,24 +15,19 @@ export default function Page({children}) {
 
 function PageClick(e){
     const thisEle = e.target;
+    thisEle.innerHTML = "";
+
     if(!thisEle.classList.contains('fliped')){
         thisEle.classList.add('fliped');
-        console.log(thisEle.firstChild);
-        thisEle.firstChild.classList.add('hidden');
     }else{
         thisEle.classList.remove('fliped');
-        thisEle.firstChild.classList.remove('hidden');
     }
 }
 
 
-function renderContext(){
-
-}
-
 const StyledSection = styled.section`
-    width: 50%;
-    height: 100%;
+    width: 50vw;
+    height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
