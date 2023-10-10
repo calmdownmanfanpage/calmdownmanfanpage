@@ -19,7 +19,6 @@ export default function Meme(props: { meme: MemeType }) {
 
 const StyledContainer = styled.div`
   position: relative;
-  width: 100%;
   height: calc(100vh - ${HEADER_HEIGHT}px);
   scroll-snap-align: start;
   scroll-snap-stop: always;
