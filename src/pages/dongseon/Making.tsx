@@ -1,18 +1,13 @@
 import styled from 'styled-components';
 import { HEADER_HEIGHT } from '../../styles/contants';
-import PageLeft from './components/PageLeft';
-import PageRight from './components/PageRight';
 import Page from './components/Page';
-import Previous from './components/Previous';
 
 export default function Making() {
     return (
       <>
         <StyledMain>
 
-          {/* <Page></Page> */}
-            <PageLeft></PageLeft>
-            <PageRight></PageRight>
+          <Page></Page>
           
         </StyledMain>
       </>
@@ -29,4 +24,8 @@ const StyledMain = styled.main`
   overflow: hidden;
   position: relative;
   perspective: 1000px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `
