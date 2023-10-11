@@ -1,42 +1,44 @@
-import styled from 'styled-components';
+import styled, {css} from 'styled-components';
 import { useState } from 'react';
 
 
 export default function Page() {
 
     const [contentId, setContentId] = useState(0);
+
+    // 총 컨텐츠 개수 (짝수로 맞추기)
+    const contentLimit:number = 10;
+
+    const [isLeftFliped, setLeftFlip]  = useState(false);
+    const [isRightFliped, setRightFlip]  = useState(false);
+    const [LeftPause, setLeftPause] = useState(false);
+    const [RightPause, setRightPause] = useState(false);
+
+
 // 클릭시 페이지를 넘기고 내용을 업데이트함
 const LeftPageClick = () => {
-    const leftPageEle:any = document.querySelector("#leftPage");
-    const rightPageEle:any = document.querySelector("#rightPage");
 
-    // 클래스 추가로 페이지 넘기는 애니메이션
-    leftPageEle.classList.add('fliped', 'top');
-    rightPageEle.classList.add('pauseClick');
+    if(contentId === 0) return;
+
+    setLeftFlip(true);
+    setRightPause(true);
     setTimeout(()=>{
-        // 페이지를 원래 위치로 되돌림
-        leftPageEle.classList.remove('fliped', 'top');
-        rightPageEle.classList.remove('pauseClick');
-
-        // 좌/우 페이지 내용 업데이트
+        setLeftFlip(false);
+        setRightPause(false);
         setContentId(contentId - 2);
     },1000)
 }
 
 // 클릭시 페이지를 넘기고 내용을 업데이트함
 const RightPageClick = () => {
-    const rightPageEle:any = document.querySelector("#rightPage");
-    const leftPageEle:any = document.querySelector("#leftPage");
 
-    // 클래스 추가로 페이지 넘기는 애니메이션
-    rightPageEle.classList.add('fliped', 'top');
-    leftPageEle.classList.add('pauseClick');
+    if(contentId === contentLimit) return;
+
+    setRightFlip(true);
+    setLeftPause(true);
     setTimeout(()=>{
-        // 페이지를 원래 위치로 되돌림
-        rightPageEle.classList.remove('fliped', 'top');
-        leftPageEle.classList.remove('pauseClick');
-
-        // 좌/우 페이지 내용 업데이트
+        setRightFlip(false);
+        setLeftPause(false);
         setContentId(contentId + 2);
     },1000)
 }
@@ -47,15 +49,39 @@ const RightPageClick = () => {
       <>
         <StyledDiv>
             <Cover>
-                <StyledBorder></StyledBorder>
-                <StyledBorder></StyledBorder>
+                {contentId <= 2
+                    ? <></> 
+                    : <StyledBackLeft></StyledBackLeft>
+                }
+                {contentId >= contentLimit-2
+                    ? <></>
+                    : <StyledBackRight></StyledBackRight>
+                }
             </Cover>
-        <StyledSectionLeft onClick={LeftPageClick} id="leftPage">
-            {contentId}
-        </StyledSectionLeft>
-        <StyledSectionRight onClick={RightPageClick} id="rightPage">
-            {contentId+1}
-        </StyledSectionRight>
+            {contentId ===  0 
+                ? <></> // 첫장 왼쪽페이지 안보이게
+                : <StyledSectionLeft onClick={LeftPageClick} isLeftFliped={isLeftFliped} LeftPause={LeftPause} id="leftPage">
+                    {!isLeftFliped && !isRightFliped
+                        ? contentId === contentLimit 
+                            ? <div>침착맨 명언집 뒷표지</div> // 뒷표지
+                            : <div>{contentId}</div> // 내용
+                        
+                        : <></>
+                    }
+                </StyledSectionLeft>
+            }
+            {contentId === contentLimit 
+                ? <></>
+                : <StyledSectionRight onClick={RightPageClick} isRightFliped={isRightFliped} RightPause={RightPause} id="rightPage">
+                    {!isLeftFliped && !isRightFliped
+                        ? contentId === 0
+                            ? <div>침착맨 명언집 앞표지</div> // 앞표지
+                            : <div>{contentId + 1}</div> // 내용
+                        : <></>
+                    }
+                </StyledSectionRight>
+            }
+        
         </StyledDiv>
       </>
     );
@@ -67,10 +93,8 @@ const StyledDiv = styled.div`
     width: 80vw;
     height: 80vh;
     display: flex;
-    background: white;
-    /* border: 10px solid black; */
-    position: absolute;
     z-index: -2;
+    perspective: 2500px;
 `
 
 const Cover = styled.div`
@@ -79,18 +103,32 @@ const Cover = styled.div`
     position: absolute;
     display: flex;
     z-index: -1;
+    &.hidden{
+        display: none;
+    }
 `
 
-const StyledBorder = styled.div`
+const StyledBackLeft = styled.div<{}>`
     width: 50%;
     height: 100%;
+    background: white;
     border: 10px solid black;
     z-index: -1;
+    position: absolute;
+`
+
+const StyledBackRight = styled.div<{}>`
+    width: 50%;
+    height: 100%;
+    background: white;
+    border: 10px solid black;
+    z-index: -1;
+    position: absolute;
+    margin-left: 50%;
 `
 
 
-
-const StyledSectionLeft = styled.section`
+const StyledSectionLeft = styled.section<{ isLeftFliped:boolean, LeftPause:boolean }>`
     width: 50%;
     height: 100%;
     display: flex;
@@ -102,26 +140,30 @@ const StyledSectionLeft = styled.section`
     border: 10px solid black;
     /* border-right: 5px solid black; */
 
-    /* position: absolute; */
+    position: absolute;
     top: 0;
     left: 0;
     transform-origin: right center;
     transition-duration: 0s;
     transition-timing-function: ease-out;
 
-    &.fliped{
-        transition-duration: 1s;
-        transform: rotateY(180deg);
-    }
-    &.top{
-        z-index: 100;
-    }
-    &.pauseClick{
-        pointer-events: none;
-    }
+
+    ${({isLeftFliped})=>{
+        return isLeftFliped && css`
+            transition-duration: 1s;
+            transform: rotateY(180deg);
+            z-index: 100;
+        `
+    }}
+
+    ${({LeftPause})=>{
+        return LeftPause && css`
+            pointer-events: none;
+        `
+    }}
 `
 
-const StyledSectionRight = styled.section`
+const StyledSectionRight = styled.section<{ isRightFliped:boolean, RightPause:boolean }>`
     width: 50%;
     height: 100%;
     display: flex;
@@ -133,23 +175,25 @@ const StyledSectionRight = styled.section`
     border: 10px solid black;
     /* border-left: 5px solid black; */
 
-    /* margin-left: 50vw;
-    position: absolute; */
+    margin-left: 50%;
+    position: absolute; 
     top: 0;
     left: 0;
     transform-origin: left center;
     transition-duration: 0s;
     transition-timing-function: ease-out;
 
+    ${({isRightFliped})=>{
+        return isRightFliped && css`
+            transition-duration: 1s;
+            transform: rotateY(-180deg);
+            z-index: 100;
+        `
+    }}
 
-    &.fliped{
-    transition-duration: 1s;
-        transform: rotateY(-180deg);
-    }
-    &.top{
-        z-index: 100;
-    }
-    &.pauseClick{
-        pointer-events: none;
-    }
+    ${({isRightPause})=>{
+        return isRightPause && css`
+            pointer-events: none;
+        `
+    }}
 `
