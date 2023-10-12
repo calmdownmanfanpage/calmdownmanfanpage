@@ -14,6 +14,7 @@ const createToken = (_id) => {
     return jwt.sign({_id}, jwtkey, {expiresIn: "3d"})
 }
 
+//회원가입
 const registerUser = async (req, res) => {
     try{
         const {name, email, password,} = req.body;
@@ -43,4 +44,52 @@ const registerUser = async (req, res) => {
   
 }
 
-module.exports = {registerUser}
+//로그인
+const loginUser = async(req, res) => {
+    const {email, password} = req.body;
+
+    try{
+        let user = await userModel.findOne({email});
+
+        if(!user) return res.status(400).json("이메일 정보가 존재하지 않습니다.");
+
+        const isValidPassword = await bcrypt.compare(password, user.password);
+
+        if(!isValidPassword) return res.status(400).json("비밀번호가 일치하지 않습니다.");
+
+        const token = createToken(user._id);
+
+        res.status(200).json({_id: user._id, name : user.name, email, token});
+    }catch(error){
+        console.log(error);
+        res.status(500).json(error);
+    }
+}
+
+//아이디로 유저정보 찾기
+const findUser = async(req, res) => {
+    const userId = req.params.userId;
+
+    try{
+        const user = await userModel.findById(userId);
+
+        res.status(200).json(user);
+    }catch(error){
+        console.log(error);
+        res.status(500).json(error);
+    }
+}
+
+//모든 유저 정보 가져오기
+const getUsers = async(req, res) => {
+    try{
+        const users = await userModel.find();
+
+        res.status(200).json(users);
+    }catch(error){
+        console.log(error);
+        res.status(500).json(error);
+    }
+}
+
+module.exports = {registerUser, loginUser, findUser, getUsers};
