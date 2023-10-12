@@ -1,7 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
 import MainPage from "./main/MainPage";
 import Layout from "../components/Layout";
-import Chat from "./dahyeon/Chat";
+import { Chat, Login, Register } from "../pages/dahyeon/index";
+
 
 export const path = {
   root: "/",
@@ -27,6 +28,16 @@ export const router = createBrowserRouter([
       {
         path: path.dahyeon,
         element: <Chat />,
+        children:[
+          {
+            path: "login",
+            element: <Login />
+          },
+          {
+            path: "register",
+            element: <Register />
+          }
+        ]
       },
     ],
   },
