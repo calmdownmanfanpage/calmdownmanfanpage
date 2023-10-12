@@ -1,20 +1,100 @@
 {
   "data": [
-    { "title": "지떨코", "src": "/gangsan/temp.png", "link": "/" },
-    { "title": "역볶이맨", "src": "/gangsan/temp2.webp", "link": "/" },
-    { "title": "지떨코", "src": "/gangsan/temp.png", "link": "/" },
-    { "title": "지떨코", "src": "/gangsan/temp.png", "link": "/" },
-    { "title": "지떨코", "src": "/gangsan/temp.png", "link": "/" },
-    { "title": "지떨코", "src": "/gangsan/temp.png", "link": "/" },
-    { "title": "지떨코", "src": "/gangsan/temp.png", "link": "/" },
-    { "title": "지떨코", "src": "/gangsan/temp.png", "link": "/" },
-    { "title": "지떨코", "src": "/gangsan/temp.png", "link": "/" },
-    { "title": "지떨코", "src": "/gangsan/temp.png", "link": "/" },
-    { "title": "지떨코", "src": "/gangsan/temp.png", "link": "/" },
-    { "title": "지떨코", "src": "/gangsan/temp.png", "link": "/" },
-    { "title": "지떨코", "src": "/gangsan/temp.png", "link": "/" },
-    { "title": "지떨코", "src": "/gangsan/temp.png", "link": "/" },
-    { "title": "지떨코", "src": "/gangsan/temp.png", "link": "/" },
-    { "title": "지떨코", "src": "/gangsan/temp.png", "link": "/" }
+    {
+      "title": "지떨코",
+      "author": "침착맨",
+      "src": "/gangsan/temp.png",
+      "link": "/"
+    },
+    {
+      "title": "역볶이맨",
+      "author": "침착맨",
+      "src": "/gangsan/temp2.webp",
+      "link": "/"
+    },
+    {
+      "title": "지떨코",
+      "author": "침착맨",
+      "src": "/gangsan/temp.png",
+      "link": "/"
+    },
+    {
+      "title": "지떨코",
+      "author": "침착맨",
+      "src": "/gangsan/temp.png",
+      "link": "/"
+    },
+    {
+      "title": "지떨코",
+      "author": "침착맨",
+      "src": "/gangsan/temp.png",
+      "link": "/"
+    },
+    {
+      "title": "지떨코",
+      "author": "침착맨",
+      "src": "/gangsan/temp.png",
+      "link": "/"
+    },
+    {
+      "title": "지떨코",
+      "author": "침착맨",
+      "src": "/gangsan/temp.png",
+      "link": "/"
+    },
+    {
+      "title": "지떨코",
+      "author": "침착맨",
+      "src": "/gangsan/temp.png",
+      "link": "/"
+    },
+    {
+      "title": "지떨코",
+      "author": "침착맨",
+      "src": "/gangsan/temp.png",
+      "link": "/"
+    },
+    {
+      "title": "지떨코",
+      "author": "침착맨",
+      "src": "/gangsan/temp.png",
+      "link": "/"
+    },
+    {
+      "title": "지떨코",
+      "author": "침착맨",
+      "src": "/gangsan/temp.png",
+      "link": "/"
+    },
+    {
+      "title": "지떨코",
+      "author": "침착맨",
+      "src": "/gangsan/temp.png",
+      "link": "/"
+    },
+    {
+      "title": "지떨코",
+      "author": "침착맨",
+      "src": "/gangsan/temp.png",
+      "link": "/"
+    },
+    {
+      "title": "지떨코",
+      "author": "침착맨",
+      "src": "/gangsan/temp.png",
+      "link": "/"
+    },
+    {
+      "title": "지떨코",
+      "author": "침착맨",
+      "src": "/gangsan/temp.png",
+      "link": "/"
+    },
+    {
+      "title": "지떨코",
+      "author": "침착맨",
+      "src": "/gangsan/temp.png",
+      "link": "/"
+    }
   ]
 }
