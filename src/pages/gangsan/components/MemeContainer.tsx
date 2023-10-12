@@ -40,4 +40,5 @@ const StyledWrapper = styled.div`
   justify-content: center;
   align-items: center;
   max-width: ${HEADER_MAX_WIDTH}px;
+  width: 100%;
 `;
