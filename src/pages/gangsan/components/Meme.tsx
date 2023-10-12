@@ -1,5 +1,6 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { HEADER_HEIGHT } from "../../../styles/contants";
+import { useState } from "react";
 
 export type MemeType = {
   title: string;
@@ -10,9 +11,18 @@ export type MemeType = {
 
 export default function Meme(props: { meme: MemeType }) {
   const { meme } = props;
+
+  const [isHover, setIsHover] = useState(false);
+
+  const toggleMouseHover = () => setIsHover(!isHover);
+
   return (
     <StyledContainer>
-      <StyledSquare>
+      <StyledSquare
+        onMouseEnter={toggleMouseHover}
+        onMouseLeave={toggleMouseHover}
+      >
+        <StyledDescription isHover={isHover}>{meme.title}</StyledDescription>
         <StyledSquareWrapper>
           <StyledImage src={meme.src} />
         </StyledSquareWrapper>
@@ -26,11 +36,32 @@ const StyledContainer = styled.div`
   align-items: center;
   justify-content: center;
 
-  width: 100%;
+  position: relative;
 
+  width: 100%;
   height: calc(100vh - ${HEADER_HEIGHT}px);
+
   scroll-snap-align: start;
   scroll-snap-stop: always;
+`;
+
+const StyledDescription = styled.div<{ isHover: boolean }>`
+  position: absolute;
+  z-index: 2;
+  color: transparent;
+  transition: 0.2s all;
+
+  ${({ isHover }) => {
+    return (
+      isHover &&
+      css`
+        color: #f0f0f0;
+        background: linear-gradient(#121212, 60%, transparent);
+        width: 100%;
+        padding: 15px;
+      `
+    );
+  }}
 `;
 
 const StyledSquare = styled.div`
