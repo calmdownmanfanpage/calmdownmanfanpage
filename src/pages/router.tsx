@@ -3,6 +3,7 @@ import MainPage from "./main/MainPage";
 import Layout from "../components/Layout";
 import { Chat, Login, Register } from "../pages/dahyeon/index";
 import Games from "./jeongun/Games";
+import Making from "./dongseon/Making";
 
 export const path = {
   root: "/",
@@ -28,21 +29,22 @@ export const router = createBrowserRouter([
       {
         path: path.dahyeon,
         element: <Chat />,
-        children:[
+        children: [
           {
             path: "login",
-            element: <Login />
+            element: <Login />,
           },
           {
             path: "register",
-            element: <Register />
-          }
+            element: <Register />,
+          },
         ],
       },
       {
         path: path.games,
         element: <Games />,
       },
+      { path: path.dongseon, element: <Making /> },
     ],
   },
 ]);
