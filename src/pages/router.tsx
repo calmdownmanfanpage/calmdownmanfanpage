@@ -12,6 +12,8 @@ export const path = {
   games: "/games",
   dahyeon: "/dahyeon",
   meme: "/meme",
+  login: "/login",
+  register: "/register",
 };
 
 export const router = createBrowserRouter([
@@ -30,22 +32,20 @@ export const router = createBrowserRouter([
       {
         path: path.dahyeon,
         element: <Chat />,
-        children: [
-          {
-            path: "login",
-            element: <Login />,
-          },
-          {
-            path: "register",
-            element: <Register />,
-          },
-        ],
       },
       {
         path: path.games,
         element: <Games />,
       },
       { path: path.dongseon, element: <Making /> },
+      {
+        path: path.login,
+        element: <Login />,
+      },
+      {
+        path: path.register,
+        element: <Register />,
+      },
     ],
   },
 ]);
