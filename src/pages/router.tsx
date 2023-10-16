@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import MainPage from "./main/MainPage";
 import Layout from "../components/Layout";
-import Making from "./dongseon/Making";
+import Making from "./dongseon/PhrasePage";
 
 export const path = {
   root: "/",

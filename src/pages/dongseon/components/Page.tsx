@@ -1,13 +1,33 @@
 import styled from "styled-components";
+import data from "../phrase.json";
+import { useState } from "react";
 
-export default function Page({ children }) {
+export default function Page({children}:any) {
+  const [likesState, setLikesState] = useState(data.likes[children]);
+  const [sharedState, setSharedState] = useState(data.shared[children]);
+
+  const likeBtnClick = ()=>{
+    setLikesState(likesState + 1);
+  }
+  const shareBtnClick = ()=>{
+    setSharedState(sharedState + 1);
+  }
+
+  const likesData = likesState.toLocaleString();
+  const sharedData = sharedState.toLocaleString();
+
   return (
     <>
       <StyledPage>
-        <StyledPhrase>{children}</StyledPhrase>
-        <StyledInfo>
-         <StyledBtn>🩷 x 100</StyledBtn><StyledBtn>공유하기</StyledBtn>
-        </StyledInfo>
+        <StyledPhrase>{data.phrase[children]}</StyledPhrase>
+        <StyledInfoCover1>
+          <StyledInfoCover2>
+            <StyledLikeBtn onClick={likeBtnClick}>🩷</StyledLikeBtn>
+            <StyledShareBtn onClick={shareBtnClick}>공유</StyledShareBtn>
+            <StyledLikeInfo>{likesData} likes</StyledLikeInfo>
+            <StyledSharedInfo>{sharedData} shared</StyledSharedInfo>
+          </StyledInfoCover2>
+        </StyledInfoCover1>
       </StyledPage>
     </>
   );
@@ -16,11 +36,13 @@ export default function Page({ children }) {
 const StyledPage = styled.div`
   width: 100%;
   height: 100%;
+  position: absolute;
 `;
 
 const StyledPhrase = styled.div`
   width: 100%;
   height: 100%;
+  padding: 15%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -29,20 +51,38 @@ const StyledPhrase = styled.div`
   position: absolute;
 `
 
-const StyledInfo = styled.div`
+const StyledInfoCover1 = styled.div`
   position: absolute;
   width: 100%;
-  height: 10%;
   bottom: 0;
+
   display: flex;
+  align-items: center;
   justify-content: center;
-  line-height: 2;
+`
+const StyledInfoCover2 = styled.div`
+  display: grid;
+  grid-template-columns: 100px 100px;
+  grid-template-rows: 40px 30px;
+  grid-gap: 10px;
+
 `
 
 const StyledBtn = styled.button`
-  height: 40px;
-  margin: 10px;
   border: 1px solid black;
   border-radius: 5px;
   background: white;
+`
+
+const StyledLikeBtn = styled(StyledBtn)`
+`
+const StyledShareBtn = styled(StyledBtn)`
+`
+
+const StyledInfo = styled.div`
+  font-size: 10px;
+`
+const StyledLikeInfo = styled(StyledInfo)`
+`
+const StyledSharedInfo = styled(StyledInfo)`
 `
