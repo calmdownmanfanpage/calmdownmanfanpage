@@ -20,6 +20,10 @@ export default function Header() {
             <StyledLink to={path.dahyeon}>다현</StyledLink>
             <StyledLink to={path.meme}>모든 밈들의 신</StyledLink>
           </StyledMenuWrapper>
+          <div>
+            <Link to={path.login}>로그인</Link>
+            <Link to={path.register}>회원가입</Link>
+          </div>
           <StyledMenuButton onClick={handleOpenMenu} />
         </StyledContainer>
       </StyledHeader>
