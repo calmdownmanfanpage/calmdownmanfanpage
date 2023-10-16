@@ -16,7 +16,7 @@ export default function Header() {
           <StyledImageLink to={path.root} />
           <StyledMenuWrapper isOpened={isOpened}>
             <StyledLink to={path.dongseon}>동선</StyledLink>
-            <StyledLink to={path.jeongoon}>정운</StyledLink>
+            <StyledLink to={path.games}>정운</StyledLink>
             <StyledLink to={path.dahyeon}>다현</StyledLink>
             <StyledLink to={path.meme}>모든 밈들의 신</StyledLink>
           </StyledMenuWrapper>
