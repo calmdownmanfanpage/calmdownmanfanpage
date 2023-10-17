@@ -1,12 +1,11 @@
-import "./gamesStyle.css";
-import Hearthstone from "./Hearthstone.tsx";
-import GTA5 from "./GTA5.tsx";
-import LOL from "./LOL.tsx";
-import HOS from "./HOS.tsx";
-import Pokemon from "./Pokemon.tsx";
+import Hearthstone from "./components/Hearthstone.tsx";
+import GTA5 from "./components/GTA5.tsx";
+import LOL from "./components/LOL.tsx";
+import HOS from "./components/HOS.tsx";
+import Pokemon from "./components/Pokemon.tsx";
 import styled from "styled-components";
 
-export default function Games() {
+export default function GamePage() {
   return (
     <>
       <GameBody>
@@ -22,7 +21,7 @@ export default function Games() {
 
 const GameBody = styled.body`
   width: 100%;
-  background: black;
+  background: #010101;
   display: flex;
   flex-direction: column;
   align-items: center;
