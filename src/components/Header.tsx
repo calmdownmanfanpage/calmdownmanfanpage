@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import styled, { css } from "styled-components";
 import { path } from "../pages/router";
 import { useState } from "react";
-import { HEADER_HEIGHT } from "../styles/contants";
+import { HEADER_HEIGHT, HEADER_MAX_WIDTH } from "../styles/contants";
 
 export default function Header() {
   const [isOpened, setIsOpened] = useState(false);
@@ -16,14 +16,14 @@ export default function Header() {
           <StyledImageLink to={path.root} />
           <StyledMenuWrapper isOpened={isOpened}>
             <StyledLink to={path.dongseon}>동선</StyledLink>
-            <StyledLink to={path.jeongoon}>정운</StyledLink>
-            <StyledLink to={path.teahyeong}>태형</StyledLink>
-            <StyledLink to={path.soyeon}>소연</StyledLink>
+            <StyledLink to={path.games}>정운</StyledLink>
             <StyledLink to={path.dahyeon}>다현</StyledLink>
-            <StyledLink to={path.gangsan}>강산</StyledLink>
-            <StyledLink to={path.choonghyeon}>충현</StyledLink>
-            <StyledLink to={path.minseong}>민성</StyledLink>
+            <StyledLink to={path.meme}>모든 밈들의 신</StyledLink>
           </StyledMenuWrapper>
+          <div>
+            <Link to={path.login}>로그인</Link>
+            <Link to={path.register}>회원가입</Link>
+          </div>
           <StyledMenuButton onClick={handleOpenMenu} />
         </StyledContainer>
       </StyledHeader>
@@ -42,7 +42,7 @@ const StyledContainer = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100vw;
-  max-width: 980px;
+  max-width: ${HEADER_MAX_WIDTH}px;
   @media screen and (min-width: 834px) {
     min-width: 834px;
   }

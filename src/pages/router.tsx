@@ -2,17 +2,18 @@ import { createBrowserRouter } from "react-router-dom";
 import MainPage from "./main/MainPage";
 import Layout from "../components/Layout";
 import Making from "./dongseon/PhrasePage";
+import MemePage from "./gangsan/MemePage";
+import { Chat, Login, Register } from "../pages/dahyeon/index";
+import Games from "./jeongun/Games";
 
 export const path = {
   root: "/",
   dongseon: "/dongseon",
-  jeongoon: "/jeongoon",
-  teahyeong: "/teahyeong",
-  soyeon: "/soyeon",
+  games: "/games",
   dahyeon: "/dahyeon",
-  gangsan: "/gangsan",
-  choonghyeon: "/choonghyeon",
-  minseong: "/minseong",
+  meme: "/meme",
+  login: "/login",
+  register: "/register",
 };
 
 export const router = createBrowserRouter([
@@ -25,8 +26,25 @@ export const router = createBrowserRouter([
         element: <MainPage />,
       },
       {
-        path: path.dongseon,
-        element: <Making />,
+        path: path.meme,
+        element: <MemePage />,
+      },
+      {
+        path: path.dahyeon,
+        element: <Chat />,
+      },
+      {
+        path: path.games,
+        element: <Games />,
+      },
+      { path: path.dongseon, element: <Making /> },
+      {
+        path: path.login,
+        element: <Login />,
+      },
+      {
+        path: path.register,
+        element: <Register />,
       },
     ],
   },
