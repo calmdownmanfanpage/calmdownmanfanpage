@@ -5,27 +5,35 @@ const StyledMain = styled.div`
   height: auto;
   display: flex;
   flex-direction: column;
-  background: #1f2023;
+  background: #e3e0f3;
   align-items: center;
-  border-radius: 10px;
-  color: white;
-  margin: 20px 0 20px 0;
+  border-radius: 5px;
+  margin: 10px 0 10px 0;
 `;
 
 const StyledTitle = styled.h1`
   font-family: arial, sans-sefif;
-  font-size: 3rem;
+  font-size: 2.5rem;
   font-weight: 400;
+  text-align: center;
+  line-height: 1.5;
 `;
 
 const StyledExplain = styled.div`
   width: 50%;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
+  text-align: center;
+  line-height: 1.5;
 `;
 const StyledVideo = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-around;
+  margin: 15px 0 15px 0;
 `;
 
-export { StyledMain, StyledTitle, StyledExplain, StyledVideo };
+const StyledSide = styled.div`
+  width: 20%;
+`;
+
+export { StyledMain, StyledTitle, StyledExplain, StyledVideo, StyledSide };

@@ -11,7 +11,12 @@ export default function Pokemon() {
   return (
     <>
       <StyledMain>
-        <StyledTitle>딸천재 침착맨의 포켓몬 정복기</StyledTitle>
+        <StyledTitle>
+          내가 포켓몬 마스터가 될수 있을리 없잖아! 무리무리!!!(무리가
+          아니었다?!)
+          <br />
+          병거니우스의 포켓몬 마스터 도전기
+        </StyledTitle>
         <StyledExplain>{ExplainGames.pokemon}</StyledExplain>
         <StyledVideo>
           <YoutubeComponent id="lSt2UnEmGxc" />
