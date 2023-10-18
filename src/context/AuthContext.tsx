@@ -1,9 +1,14 @@
 import { createContext, useState, useCallback, useEffect } from "react";
 import { baseUrl, postRequest } from "../utils/services";
 
+type User = {
+  name: string;
+  email: string;
+};
+
 const AuthContext = createContext(null); //context객체 생성
 const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<User>();
   const [registerError, setRegisterError] = useState(null);
   const [isRegisterLoading, setIsRegisterLoading] = useState(false);
   const [registerInfo, setRegisterInfo] = useState({

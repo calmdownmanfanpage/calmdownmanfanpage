@@ -25,9 +25,13 @@ export default function Header() {
           </StyledMenuWrapper>
           {/* 유저 정보가 있을 때 */}
           {user && (
-            <div>
+            <div style={{ width: "15%" }}>
               <span>{user?.name}</span> 님
-              <Link onClick={logoutUser} to={path.login}>
+              <Link
+                onClick={logoutUser}
+                to={path.login}
+                style={{ display: "block" }}
+              >
                 로그아웃
               </Link>
             </div>
