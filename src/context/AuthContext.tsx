@@ -11,6 +11,12 @@ const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
     email: "",
     password: "",
   });
+  const [loginError, setLoginError] = useState(null);
+  const [isLoginLoading, setIsLoginLoading] = useState(false);
+  const [loginInfo, setLoginInfo] = useState({
+    email: "",
+    password: "",
+  });
 
   //새로고침시에도 유저정보 유지
   useEffect(() => {
@@ -20,6 +26,10 @@ const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
 
   const updateRegisterInfo = useCallback((info) => {
     setRegisterInfo(info);
+  }, []);
+
+  const updateLoginInfo = useCallback((info) => {
+    setLoginInfo(info);
   }, []);
 
   //회원가입
@@ -47,6 +57,37 @@ const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
     [registerInfo],
   );
 
+  //로그인
+  const loginUser = useCallback(
+    async (e) => {
+      e.preventDefault();
+
+      setIsLoginLoading(true);
+      setLoginError(null);
+
+      const response = await postRequest(
+        `${baseUrl}/users/login`,
+        JSON.stringify(loginInfo),
+      );
+
+      setIsLoginLoading(false);
+
+      if (response.error) {
+        return setLoginError(response);
+      }
+
+      localStorage.setItem("User", JSON.stringify(response));
+      setUser(response);
+    },
+    [loginInfo],
+  );
+
+  //로그아웃
+  const logoutUser = useCallback(() => {
+    localStorage.removeItem("User");
+    setUser(null);
+  }, []);
+
   return (
     <AuthContext.Provider
       value={{
@@ -57,6 +98,12 @@ const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
         registerUser,
         registerError,
         isRegisterLoading,
+        logoutUser,
+        loginUser,
+        loginError,
+        loginInfo,
+        updateLoginInfo,
+        isLoginLoading,
       }}
     >
       {children}

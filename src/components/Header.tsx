@@ -1,13 +1,16 @@
 import { Link } from "react-router-dom";
 import styled, { css } from "styled-components";
 import { path } from "../pages/router";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { HEADER_HEIGHT, HEADER_MAX_WIDTH } from "../styles/contants";
+import { AuthContext } from "../context/AuthContext";
 
 export default function Header() {
   const [isOpened, setIsOpened] = useState(false);
 
   const handleOpenMenu = () => setIsOpened(!isOpened);
+
+  const { user, logoutUser } = useContext(AuthContext);
 
   return (
     <>
@@ -20,10 +23,24 @@ export default function Header() {
             <StyledLink to={path.dahyeon}>다현</StyledLink>
             <StyledLink to={path.meme}>모든 밈들의 신</StyledLink>
           </StyledMenuWrapper>
-          <div>
-            <Link to={path.login}>로그인</Link>
-            <Link to={path.register}>회원가입</Link>
-          </div>
+          {/* 유저 정보가 있을 때 */}
+          {user && (
+            <div>
+              <span>{user?.name}</span> 님
+              <Link onClick={logoutUser} to={path.login}>
+                로그아웃
+              </Link>
+            </div>
+          )}
+
+          {/* 유저 정보가 없을 때 */}
+          {!user && (
+            <div>
+              <Link to={path.login}>로그인</Link>
+              <Link to={path.register}>회원가입</Link>
+            </div>
+          )}
+
           <StyledMenuButton onClick={handleOpenMenu} />
         </StyledContainer>
       </StyledHeader>

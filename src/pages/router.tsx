@@ -2,7 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import MainPage from "./main/MainPage";
 import Layout from "../components/Layout";
 import MemePage from "./gangsan/MemePage";
-import { ChatPage, Login, Register, CheckLogin } from "../pages/dahyeon/index";
+import { Login, Register, CheckLogin } from "../pages/dahyeon/index";
 import Games from "./jeongun/Games";
 import Making from "./dongseon/Making";
 
@@ -31,7 +31,7 @@ export const router = createBrowserRouter([
       },
       {
         path: path.dahyeon,
-        element: <CheckLogin page={<ChatPage />} />,
+        element: <CheckLogin page={<Login />} />,
       },
       {
         path: path.games,
@@ -40,11 +40,11 @@ export const router = createBrowserRouter([
       { path: path.dongseon, element: <Making /> },
       {
         path: path.login,
-        element: <Login />,
+        element: <CheckLogin page={<Login />} />,
       },
       {
         path: path.register,
-        element: <Register />,
+        element: <CheckLogin page={<Register />} />,
       },
     ],
   },
