@@ -1,23 +1,21 @@
 import styled, { css } from "styled-components";
 import { HEADER_HEIGHT } from "../../styles/contants";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Page from "./components/Page";
 import FrontCover from "./components/FrontCover";
 import BackCover from "./components/BackCover";
-import data from "./phrase.json";
+import phraseJson from "./phrase.json";
 
-export default function Making() {
-  const phrase = data.phrase;
-  // console.log(phrase.length);
-
+export default function PhrasePage() {
   // 총 컨텐츠 개수 (짝수로 맞추기)
-  const parseContentLimit = ()=>{
-    if (phrase.length % 2 === 0) {
+  const phraseLen = phraseJson.data.length;
+  const parseContentLimit = () => {
+    if (phraseLen % 2 === 0) {
       // 앞표지 2장 추가
-      return phrase.length + 2;
+      return phraseLen + 2;
     }
     // 앞표지 2장 + 짝수 맞추기 1장 추가
-    return phrase.length + 3;
+    return phraseLen + 3;
   };
   const contentLimit: number = parseContentLimit();
   const [contentId, setContentId] = useState(0);
@@ -28,7 +26,7 @@ export default function Making() {
   const [eventPause, setEventPause] = useState(false);
 
   // 클릭시 페이지를 넘기고 내용을 업데이트함
-  const leftPageClick = ()=>{
+  const leftPageClick = () => {
     if (contentId === 0) return;
 
     setLeftFlip(true);
@@ -41,7 +39,7 @@ export default function Making() {
   };
 
   // 클릭시 페이지를 넘기고 내용을 업데이트함
-  const rightPageClick = ()=>{
+  const rightPageClick = () => {
     if (contentId === contentLimit) return;
 
     setRightFlip(true);
@@ -53,25 +51,7 @@ export default function Making() {
     }, 1000);
   };
 
-  // 페이지 넘기기 버튼 호버
-  const [leftHover, setLeftHover] = useState(false);
-  const [rightHover, setRightHover] = useState(false);
-
-  // 마우스가 올라옴
-  const onLeftMouseOver = ()=>{
-    setLeftHover(true);
-  }
-  const onRightMouseOver = ()=>{
-    setRightHover(true);
-  }
-  // 마우스가 나감
-  const onLeftMouseOut = ()=>{
-    setLeftHover(false);
-  }
-  const onRightMouseOut = ()=>{
-    setRightHover(false);
-  }
-
+  
   return (
     <>
       <StyledMain>
@@ -79,29 +59,25 @@ export default function Making() {
           {/* 페이지 넘어가면서 뒷장도 보이도록 하는 장식 */}
           <StyledBackgroundCover>
             {contentId <= 2 ? <></> : <StyledBackLeft></StyledBackLeft>}
-            {contentId >= contentLimit - 2 ? <></> : <StyledBackRight></StyledBackRight>}
+            {contentId >= contentLimit - 2 ? (
+              <></>
+            ) : (
+              <StyledBackRight></StyledBackRight>
+            )}
           </StyledBackgroundCover>
 
-
           {/* 페이지 애니메이션 기능 */}
-          
+
           {/* 왼쪽 페이지 */}
           {contentId === 0 ? (
             <></> // 첫장 왼쪽페이지 안보이게
           ) : (
-            <StyledSectionLeft 
-              isLeftFliped={isLeftFliped} 
-              eventPause={eventPause} 
+            <StyledSectionLeft
+              $isLeftFliped={isLeftFliped}
+              $eventPause={eventPause}
               id="leftPage"
             >
-
-              <StyledFlipBtnLeft
-                onClick={leftPageClick}
-                onMouseOver={onLeftMouseOver}
-                onMouseOut={onLeftMouseOut}
-                leftHover={leftHover}
-              >
-              </StyledFlipBtnLeft>
+              <StyledFlipBtnLeft onClick={leftPageClick}></StyledFlipBtnLeft>
               {!isLeftFliped && !isRightFliped ? (
                 contentId === contentLimit ? (
                   <BackCover></BackCover> // 뒷표지
@@ -111,8 +87,6 @@ export default function Making() {
               ) : (
                 <></>
               )}
-
-
             </StyledSectionLeft>
           )}
 
@@ -121,18 +95,11 @@ export default function Making() {
             <></> // 마지막장 오른쪽페이지 안보이게
           ) : (
             <StyledSectionRight
-              isRightFliped={isRightFliped}
-              eventPause={eventPause}
+              $isRightFliped={isRightFliped}
+              $eventPause={eventPause}
               id="rightPage"
             >
-
-              <StyledFlipBtnRight
-                onClick={rightPageClick}
-                onMouseOver={onRightMouseOver}
-                onMouseOut={onRightMouseOut}
-                rightHover={rightHover}
-              >
-              </StyledFlipBtnRight>
+              <StyledFlipBtnRight onClick={rightPageClick}></StyledFlipBtnRight>
               {!isLeftFliped && !isRightFliped ? (
                 contentId === 0 ? (
                   <FrontCover></FrontCover> // 앞표지
@@ -142,8 +109,6 @@ export default function Making() {
               ) : (
                 <></>
               )}
-
-
             </StyledSectionRight>
           )}
         </StyledDiv>
@@ -175,10 +140,6 @@ const StyledDiv = styled.div`
   perspective: 2500px;
 `;
 
-
-
-
-
 const StyledBackgroundCover = styled.div`
   width: 100%;
   height: 100%;
@@ -188,15 +149,13 @@ const StyledBackgroundCover = styled.div`
 `;
 
 const StyledBack = styled.div`
-  
   width: 50%;
   height: 100%;
   background: white;
   border: 1px solid black;
   z-index: -1;
   position: absolute;
-`
-
+`;
 
 const StyledBackLeft = styled(StyledBack)`
   border-radius: 10px 0 0 10px;
@@ -209,7 +168,6 @@ const StyledBackRight = styled(StyledBack)`
   box-shadow: 10px 0px 30px gray inset;
 `;
 
-
 const StyledSection = styled.section`
   width: 50%;
   height: 100%;
@@ -221,16 +179,19 @@ const StyledSection = styled.section`
   position: absolute;
   transform-origin: right center;
   transition-timing-function: ease-out;
-`
+`;
 
-const StyledSectionLeft = styled(StyledSection)<{isLeftFliped: boolean, eventPause: boolean;}>`
+const StyledSectionLeft = styled(StyledSection)<{
+  $isLeftFliped: boolean;
+  $eventPause: boolean;
+}>`
   border-radius: 10px 0 0 10px;
   box-shadow: -10px 0px 30px gray inset;
   transform-origin: right center;
 
-  ${({ isLeftFliped }) => {
+  ${({ $isLeftFliped }) => {
     return (
-      isLeftFliped &&
+      $isLeftFliped &&
       css`
         transition-duration: 1s;
         transform: rotateY(180deg);
@@ -239,9 +200,9 @@ const StyledSectionLeft = styled(StyledSection)<{isLeftFliped: boolean, eventPau
     );
   }}
 
-  ${({ eventPause }) => {
+  ${({ $eventPause }) => {
     return (
-      eventPause &&
+      $eventPause &&
       css`
         pointer-events: none;
       `
@@ -249,17 +210,19 @@ const StyledSectionLeft = styled(StyledSection)<{isLeftFliped: boolean, eventPau
   }}
 `;
 
-const StyledSectionRight = styled(StyledSection)<{isRightFliped: boolean, eventPause: boolean}>`
+const StyledSectionRight = styled(StyledSection)<{
+  $isRightFliped: boolean;
+  $eventPause: boolean;
+}>`
   float: right;
   margin-left: 50%;
   border-radius: 0 10px 10px 0;
   box-shadow: 10px 0px 30px gray inset;
   transform-origin: left center;
 
-
-  ${({ isRightFliped }) => {
+  ${({ $isRightFliped }) => {
     return (
-      isRightFliped &&
+      $isRightFliped &&
       css`
         transition-duration: 1s;
         transform: rotateY(-180deg);
@@ -268,9 +231,9 @@ const StyledSectionRight = styled(StyledSection)<{isRightFliped: boolean, eventP
     );
   }}
 
-  ${({ eventPause }) => {
+  ${({ $eventPause }) => {
     return (
-      eventPause &&
+      $eventPause &&
       css`
         pointer-events: none;
       `
@@ -278,34 +241,31 @@ const StyledSectionRight = styled(StyledSection)<{isRightFliped: boolean, eventP
   }}
 `;
 
-
 // 페이지 넘기는 버튼
-const StyledFlipBtnLeft = styled.div<{leftHover:boolean}>`
+const StyledFlipBtn = styled.div`
   height: 100%;
   width: 10%;
   z-index: 1;
-
-  ${({leftHover}) => {
-    return (
-      leftHover &&
-      css`
-        background: rgba(0, 157, 255, 0.1);
-      `
-    )
-  }}
-`
-const StyledFlipBtnRight = styled.div<{rightHover:boolean}>`
-  height: 100%;
-  width: 10%;
+  &:hover {
+    background: rgba(0, 157, 255, 0.1);
+  }
+  &::after {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(0, 157, 255, 1);
+  }
+`;
+const StyledFlipBtnLeft = styled(StyledFlipBtn)`
+  &:hover::after {
+    content: "⬅️";
+  }
+`;
+const StyledFlipBtnRight = styled(StyledFlipBtn)`
   margin-left: 90%;
-  z-index: 1;
 
-  ${({rightHover}) => {
-    return (
-      rightHover &&
-      css`
-        background: rgba(0, 157, 255, 0.1);
-      `
-    )
-  }}
-`
+  &:hover::after {
+    content: "➡️";
+  }
+`;
