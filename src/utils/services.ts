@@ -25,4 +25,21 @@ const postRequest = async (url: string, body: string) => {
   return data;
 };
 
-export { baseUrl, postRequest };
+const getRequest = async (url: string) => {
+  const response = await fetch(url);
+  const data = await response.json();
+
+  if (!response.ok) {
+    let message = "에러가 발생했습니다.";
+
+    if (data?.message) {
+      message = data.message;
+    }
+
+    return { error: true, message };
+  }
+
+  return data;
+};
+
+export { baseUrl, postRequest, getRequest };
