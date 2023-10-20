@@ -17,7 +17,7 @@ export default function Header() {
       <StyledHeader>
         <StyledContainer>
           <StyledImageLink to={path.root} />
-          <StyledMenuWrapper isOpened={isOpened}>
+          <StyledMenuWrapper $isOpened={isOpened}>
             <StyledLink to={path.dongseon}>동선</StyledLink>
             <StyledLink to={path.games}>정운</StyledLink>
             <StyledLink to={path.dahyeon}>다현</StyledLink>
@@ -69,15 +69,15 @@ const StyledContainer = styled.div`
   }
 `;
 
-const StyledMenuWrapper = styled.div<{ isOpened: boolean }>`
+const StyledMenuWrapper = styled.div<{ $isOpened: boolean }>`
   display: flex;
   width: 100%;
   background-color: #f5f5f7;
   font-size: 12px;
   transition: all 0.5s;
   @media screen and (max-width: 834px) {
-    ${({ isOpened }) => {
-      return isOpened
+    ${({ $isOpened }) => {
+      return $isOpened
         ? css`
             opacity: 1;
             pointer-events: auto;
@@ -99,7 +99,7 @@ const StyledMenuWrapper = styled.div<{ isOpened: boolean }>`
 `;
 
 const StyledImageLink = styled(Link)`
-  background-image: url("icon_home.png");
+  background-image: url("/icon_home.png");
   width: ${HEADER_HEIGHT}px;
   height: ${HEADER_HEIGHT}px;
   padding: 5px;
