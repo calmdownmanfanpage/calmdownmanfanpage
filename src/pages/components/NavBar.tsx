@@ -1,49 +1,41 @@
 import styled, { css } from "styled-components";
 import { Link } from "react-router-dom";
-
+import { HEADER_MAX_WIDTH } from "../../styles/contants";
 const NavBar = () => {
   return (
     <Navbar>
-      <StyledLink to="/dahyeon">
-        <h2>채팅 앱</h2>
-      </StyledLink>
-      <ul>
-        <li>
-          <Link to="/login">로그인</Link>
-        </li>
-        <li>
-          <Link to="/login">회원가입</Link>
-        </li>
-      </ul>
+      <div>
+        <StyledLink to="/dahyeon">
+          <h2>채팅 앱</h2>
+        </StyledLink>
+      </div>
     </Navbar>
   );
 };
 
 const Navbar = styled.nav`
-  ${({ theme }) => {
-    return css`
-      border: 1px solid red;
-      display: flex;
-      justify-content: space-between;
-      width: 100%;
-      height: 50px;
-      background-color: #d1d1d1;
-    `;
-  }}
+  display: flex;
+  height: 50px;
+  justify-content: center;
+  background-color: #c1bdbd;
+  padding: 10px 0;
+  div {
+    width: 100vw;
+    max-width: ${HEADER_MAX_WIDTH}px;
+    @media screen and (min-width: 834px) {
+      min-width: 834px;
+    }
+  }
 `;
 
 const StyledLink = styled(Link)`
-  ${({ theme }) => {
-    return css`
-      border: 1px solid red;
-      display: inline-block;
-      height: 100%;
-      h2 {
-        font-size: 2rem;
-        color: gray;
-        font-weight: bold;
-      }
-    `;
-  }}
+  display: inline-block;
+  height: 100%;
+  h2 {
+    font-size: 2rem;
+    color: gray;
+    font-weight: bold;
+  }
 `;
+
 export default NavBar;
