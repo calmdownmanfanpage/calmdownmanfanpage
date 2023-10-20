@@ -3,7 +3,7 @@ import MainPage from "./main/MainPage";
 import Layout from "../components/Layout";
 import PhrasePage from "./dongseon/PhrasePage";
 import MemePage from "./gangsan/MemePage";
-import { Chat, Login, Register } from "../pages/dahyeon/index";
+import { Login, Register, CheckLogin } from "../pages/dahyeon/index";
 import Games from "./jeongun/Games";
 
 export const path = {
@@ -31,7 +31,7 @@ export const router = createBrowserRouter([
       },
       {
         path: path.dahyeon,
-        element: <Chat />,
+        element: <CheckLogin page={<Login />} />,
       },
       {
         path: path.games,
@@ -47,11 +47,11 @@ export const router = createBrowserRouter([
       },
       {
         path: path.login,
-        element: <Login />,
+        element: <CheckLogin page={<Login />} />,
       },
       {
         path: path.register,
-        element: <Register />,
+        element: <CheckLogin page={<Register />} />,
       },
     ],
   },
