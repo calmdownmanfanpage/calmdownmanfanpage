@@ -20,11 +20,7 @@ function ChatPage() {
             <StyledChatList>
               {isUserChatsLoading && <p>채팅 로딩중....</p>}{" "}
               {userChats?.map((chat, index) => {
-                return (
-                  <div key={index}>
-                    <UserChat chat={chat} user={user} />
-                  </div>
-                );
+                return <UserChat key={index} chat={chat} user={user} />;
               })}
             </StyledChatList>
           )}
@@ -43,7 +39,7 @@ const StyledContainer = styled.div`
 
 const StyledWrap = styled.div`
   // border: 1px solid red;
-  max-width: 80%;
+  max-width: 60%;
   margin: auto;
   height: 100%;
   display: flex;

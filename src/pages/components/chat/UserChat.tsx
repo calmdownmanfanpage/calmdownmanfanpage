@@ -22,7 +22,7 @@ function UserChat({ chat, user }) {
 const StyledChatCard = styled.article`
   background-color: #fff;
   border-radius: 7px;
-  padding: 12px 7px;
+  padding: 12px;
   font-size: 14px;
   position: relative;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
