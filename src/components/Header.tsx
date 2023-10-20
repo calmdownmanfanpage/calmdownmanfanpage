@@ -78,7 +78,7 @@ const StyledMenuWrapper = styled.div<{ $isOpened: boolean }>`
 `;
 
 const StyledImageLink = styled(Link)`
-  background-image: url("icon_home.png");
+  background-image: url("/icon_home.png");
   width: ${HEADER_HEIGHT}px;
   height: ${HEADER_HEIGHT}px;
   padding: 5px;

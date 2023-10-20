@@ -42,6 +42,10 @@ export const router = createBrowserRouter([
         element: <PhrasePage />,
       },
       {
+        path: path.dongseon+"/:id",
+        element: <PhrasePage />,
+      },
+      {
         path: path.login,
         element: <Login />,
       },

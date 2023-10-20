@@ -1,12 +1,34 @@
 import styled, { css } from "styled-components";
+import { useEffect, useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+
 import { HEADER_HEIGHT } from "../../styles/contants";
-import { useState, useEffect } from "react";
 import Page from "./components/Page";
 import FrontCover from "./components/FrontCover";
 import BackCover from "./components/BackCover";
+
+// 내장 데이터 (수정중)
 import phraseJson from "./phrase.json";
+// axios api
+import axios from 'axios';
 
 export default function PhrasePage() {
+  // Url 변경
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  // axios api
+ async function getData(){
+  try{
+    const response = await axios.get('http://localhost:3000/dongseon');
+    console.log(response);
+  }catch(err){
+    console.log(err);
+  }
+ }
+
+
+
   // 총 컨텐츠 개수 (짝수로 맞추기)
   const phraseLen = phraseJson.data.length;
   const parseContentLimit = () => {
@@ -25,6 +47,8 @@ export default function PhrasePage() {
   const [isRightFliped, setRightFlip] = useState(false);
   const [eventPause, setEventPause] = useState(false);
 
+  
+
   // 클릭시 페이지를 넘기고 내용을 업데이트함
   const leftPageClick = () => {
     if (contentId === 0) return;
@@ -35,6 +59,7 @@ export default function PhrasePage() {
       setLeftFlip(false);
       setEventPause(false);
       setContentId(contentId - 2);
+      navigate(`/dongseon/:pageId=${contentId-2}`);
     }, 1000);
   };
 
@@ -48,8 +73,19 @@ export default function PhrasePage() {
       setRightFlip(false);
       setEventPause(false);
       setContentId(contentId + 2);
+      navigate(`/dongseon/:pageId=${contentId+2}`);
     }, 1000);
   };
+
+  useEffect(()=>{
+    const pageId = parseInt(location.pathname.split(":")[1]);
+    // console.log(pageId);
+    if(pageId) setContentId(pageId);
+  }, [location])
+
+  useEffect(()=>{
+    getData();
+  }, [])
 
   
   return (
