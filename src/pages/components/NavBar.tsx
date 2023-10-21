@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 const NavBar = () => {
@@ -20,30 +20,22 @@ const NavBar = () => {
 };
 
 const Navbar = styled.nav`
-  ${({ theme }) => {
-    return css`
-      border: 1px solid red;
-      display: flex;
-      justify-content: space-between;
-      width: 100%;
-      height: 50px;
-      background-color: #d1d1d1;
-    `;
-  }}
+  border: 1px solid red;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 50px;
+  background-color: #d1d1d1;
 `;
 
 const StyledLink = styled(Link)`
-  ${({ theme }) => {
-    return css`
-      border: 1px solid red;
-      display: inline-block;
-      height: 100%;
-      h2 {
-        font-size: 2rem;
-        color: gray;
-        font-weight: bold;
-      }
-    `;
-  }}
+  border: 1px solid red;
+  display: inline-block;
+  height: 100%;
+  h2 {
+    font-size: 2rem;
+    color: gray;
+    font-weight: bold;
+  }
 `;
 export default NavBar;

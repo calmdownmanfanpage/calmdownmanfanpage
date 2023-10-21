@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import coverImg from "../img/front.jpg";
 
 export default function FrontCover() {
