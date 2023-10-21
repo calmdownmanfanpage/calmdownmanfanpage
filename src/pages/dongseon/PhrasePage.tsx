@@ -10,7 +10,7 @@ import BackCover from "./components/BackCover";
 // 내장 데이터 (수정중)
 import phraseJson from "./phrase.json";
 // axios api
-import axios from 'axios';
+import axios from "axios";
 
 export default function PhrasePage() {
   // Url 변경
@@ -18,16 +18,14 @@ export default function PhrasePage() {
   const location = useLocation();
 
   // axios api
- async function getData(){
-  try{
-    const response = await axios.get('http://localhost:3000/dongseon');
-    console.log(response);
-  }catch(err){
-    console.log(err);
+  async function getData() {
+    try {
+      const response = await axios.get("http://localhost:3000/dongseon");
+      console.log(response);
+    } catch (err) {
+      console.log(err);
+    }
   }
- }
-
-
 
   // 총 컨텐츠 개수 (짝수로 맞추기)
   const phraseLen = phraseJson.data.length;
@@ -47,8 +45,6 @@ export default function PhrasePage() {
   const [isRightFliped, setRightFlip] = useState(false);
   const [eventPause, setEventPause] = useState(false);
 
-  
-
   // 클릭시 페이지를 넘기고 내용을 업데이트함
   const leftPageClick = () => {
     if (contentId === 0) return;
@@ -59,7 +55,7 @@ export default function PhrasePage() {
       setLeftFlip(false);
       setEventPause(false);
       setContentId(contentId - 2);
-      navigate(`/dongseon/:pageId=${contentId-2}`);
+      navigate(`/dongseon/:pageId=${contentId - 2}`);
     }, 1000);
   };
 
@@ -73,21 +69,20 @@ export default function PhrasePage() {
       setRightFlip(false);
       setEventPause(false);
       setContentId(contentId + 2);
-      navigate(`/dongseon/:pageId=${contentId+2}`);
+      navigate(`/dongseon/:pageId=${contentId + 2}`);
     }, 1000);
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     const pageId = parseInt(location.pathname.split(":")[1]);
     // console.log(pageId);
-    if(pageId) setContentId(pageId);
-  }, [location])
+    if (pageId) setContentId(pageId);
+  }, [location]);
 
-  useEffect(()=>{
+  useEffect(() => {
     getData();
-  }, [])
+  }, []);
 
-  
   return (
     <>
       <StyledMain>
