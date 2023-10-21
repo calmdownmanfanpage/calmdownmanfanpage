@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import coverImg from "../img/wb.jpeg";
+import styled from 'styled-components';
+import coverImg from '../img/back.jpeg'
 
 export default function FrontCover() {
   return (
@@ -13,12 +13,13 @@ export default function FrontCover() {
 }
 
 const StyledFrontCover = styled.div`
-  width: 100%;
-  height: 100%;
-  background: black;
-  overflow: hidden;
-  box-shadow: -10px 0px 30px gray inset;
-`;
+    width: 100%;
+    height: 100%;
+    background: black;
+    overflow: hidden;
+    box-shadow: -10px 0px 30px gray inset;
+    position: absolute;
+`
 
 const StyledCoverTitle = styled.div`
   width: 100%;
@@ -36,7 +37,8 @@ const StyledCoverTitle = styled.div`
 `;
 
 const StyledCoverImg = styled.img`
-  width: 100%;
-  height: 40%;
-  object-fit: cover;
-`;
+    width: 100%;
+    height: 40%;
+    object-fit: cover;
+        pointer-events: none;
+`
