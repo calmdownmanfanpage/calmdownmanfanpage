@@ -55,7 +55,9 @@ export default function Page({ children }: any) {
         <StyledInfoCover>
           <StyledInfoGrid>
             <StyledLikeBtn onClick={likeBtnClick}>❤️</StyledLikeBtn>
-            <StyledShareBtn onClick={shareBtnClick}>카카오톡 공유</StyledShareBtn>
+            <StyledShareBtn onClick={shareBtnClick}>
+              카카오톡 공유
+            </StyledShareBtn>
             <StyledInfo>{likesData} likes</StyledInfo>
             <StyledInfo>{sharedData} shared</StyledInfo>
           </StyledInfoGrid>

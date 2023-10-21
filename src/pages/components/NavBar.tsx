@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { HEADER_MAX_WIDTH } from "../../styles/contants";
 const NavBar = () => {

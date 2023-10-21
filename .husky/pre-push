@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# 선언 후 사용하지 않은 변수가 많아서 해결 후 주석 해제할 것
+# npm run lint 

@@ -42,7 +42,7 @@ export const router = createBrowserRouter([
         element: <PhrasePage />,
       },
       {
-        path: path.dongseon+"/:id",
+        path: path.dongseon + "/:id",
         element: <PhrasePage />,
       },
       {
