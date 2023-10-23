@@ -7,8 +7,8 @@ export default function MemeContainer(props: { memes: Array<MemeType> }) {
   return (
     <StyledContainer>
       <StyledWrapper>
-        {memes.map((meme) => (
-          <Meme meme={meme} />
+        {memes.map((meme, i) => (
+          <Meme meme={meme} key={meme.title + i} />
         ))}
       </StyledWrapper>
     </StyledContainer>
