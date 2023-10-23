@@ -1,29 +1,50 @@
 import { Link } from "react-router-dom";
 import styled, { css } from "styled-components";
 import { path } from "../pages/router";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { HEADER_HEIGHT, HEADER_MAX_WIDTH } from "../styles/contants";
+import { AuthContext } from "../context/AuthContext";
 
 export default function Header() {
   const [isOpened, setIsOpened] = useState(false);
 
   const handleOpenMenu = () => setIsOpened(!isOpened);
 
+  const { user, logoutUser } = useContext(AuthContext);
+
   return (
     <>
       <StyledHeader>
         <StyledContainer>
           <StyledImageLink to={path.root} />
-          <StyledMenuWrapper isOpened={isOpened}>
+          <StyledMenuWrapper $isOpened={isOpened}>
             <StyledLink to={path.dongseon}>동선</StyledLink>
             <StyledLink to={path.games}>정운</StyledLink>
             <StyledLink to={path.dahyeon}>다현</StyledLink>
             <StyledLink to={path.meme}>모든 밈들의 신</StyledLink>
           </StyledMenuWrapper>
-          <div>
-            <Link to={path.login}>로그인</Link>
-            <Link to={path.register}>회원가입</Link>
-          </div>
+          {/* 유저 정보가 있을 때 */}
+          {user && (
+            <div style={{ width: "15%" }}>
+              <span>{user?.name}</span> 님
+              <Link
+                onClick={logoutUser}
+                to={path.login}
+                style={{ display: "block" }}
+              >
+                로그아웃
+              </Link>
+            </div>
+          )}
+
+          {/* 유저 정보가 없을 때 */}
+          {!user && (
+            <div>
+              <Link to={path.login}>로그인</Link>
+              <Link to={path.register}>회원가입</Link>
+            </div>
+          )}
+
           <StyledMenuButton onClick={handleOpenMenu} />
         </StyledContainer>
       </StyledHeader>
@@ -48,15 +69,15 @@ const StyledContainer = styled.div`
   }
 `;
 
-const StyledMenuWrapper = styled.div<{ isOpened: boolean }>`
+const StyledMenuWrapper = styled.div<{ $isOpened: boolean }>`
   display: flex;
   width: 100%;
   background-color: #f5f5f7;
   font-size: 12px;
   transition: all 0.5s;
   @media screen and (max-width: 834px) {
-    ${({ isOpened }) => {
-      return isOpened
+    ${({ $isOpened }) => {
+      return $isOpened
         ? css`
             opacity: 1;
             pointer-events: auto;
@@ -78,7 +99,7 @@ const StyledMenuWrapper = styled.div<{ isOpened: boolean }>`
 `;
 
 const StyledImageLink = styled(Link)`
-  background-image: url("icon_home.png");
+  background-image: url("/icon_home.png");
   width: ${HEADER_HEIGHT}px;
   height: ${HEADER_HEIGHT}px;
   padding: 5px;
