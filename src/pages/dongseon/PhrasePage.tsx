@@ -8,8 +8,7 @@ import FrontCover from "./components/FrontCover";
 import BackCover from "./components/BackCover";
 
 // 내장 데이터 (수정중)
-import phraseJson from "./phrase.json";
-// axios api
+// import phraseJson from "./phrase.json";
 import axios from 'axios';
 
 export default function PhrasePage() {
@@ -17,21 +16,39 @@ export default function PhrasePage() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // axios api
- async function getData(){
-  try{
-    const response = await axios.get('http://localhost:3000/dongseon');
-    console.log(response);
-  }catch(err){
-    console.log(err);
-  }
- }
 
+  useEffect(()=>{
+    const pageId = parseInt(location.pathname.split("=")[1]);
+    if(pageId) {
+      setContentId(pageId);
+    }
+  }, [location])
+
+  useEffect(()=>{
+    // url pageId 적용
+    const pageId = parseInt(location.pathname.split("=")[1]);
+    if(pageId) {
+      setContentId(pageId);
+    }
+
+    //서버에서 data 가져오기
+    try{
+      axiosGet()
+        .then(res=>{
+          setContentLimit(parseContentLimit(res.data.length));
+        });
+    }catch(err){
+      console.log(err);
+    }
+  }, []);
+
+  const axiosGet = async ()=>{
+    return await axios.get('http://localhost:3000/dongseon');
+  }
 
 
   // 총 컨텐츠 개수 (짝수로 맞추기)
-  const phraseLen = phraseJson.data.length;
-  const parseContentLimit = () => {
+  const parseContentLimit = (phraseLen:number):number => {
     if (phraseLen % 2 === 0) {
       // 앞표지 2장 추가
       return phraseLen + 2;
@@ -39,15 +56,14 @@ export default function PhrasePage() {
     // 앞표지 2장 + 짝수 맞추기 1장 추가
     return phraseLen + 3;
   };
-  const contentLimit: number = parseContentLimit();
+  
+  const [contentLimit, setContentLimit] = useState(0);
   const [contentId, setContentId] = useState(0);
 
   // 페이지 넘기는 애니메이션용
   const [isLeftFliped, setLeftFlip] = useState(false);
   const [isRightFliped, setRightFlip] = useState(false);
   const [eventPause, setEventPause] = useState(false);
-
-  
 
   // 클릭시 페이지를 넘기고 내용을 업데이트함
   const leftPageClick = () => {
@@ -77,17 +93,6 @@ export default function PhrasePage() {
     }, 1000);
   };
 
-  useEffect(()=>{
-    const pageId = parseInt(location.pathname.split(":")[1]);
-    // console.log(pageId);
-    if(pageId) setContentId(pageId);
-  }, [location])
-
-  useEffect(()=>{
-    getData();
-  }, [])
-
-  
   return (
     <>
       <StyledMain>
@@ -118,7 +123,9 @@ export default function PhrasePage() {
                 contentId === contentLimit ? (
                   <BackCover></BackCover> // 뒷표지
                 ) : (
-                  <Page>{contentId - 2}</Page>
+                  <Page
+                    pageId={Number(contentId-2)}
+                  ></Page>
                 ) // 내용
               ) : (
                 <></>
@@ -140,7 +147,9 @@ export default function PhrasePage() {
                 contentId === 0 ? (
                   <FrontCover></FrontCover> // 앞표지
                 ) : (
-                  <Page>{contentId - 1}</Page>
+                  <Page
+                  pageId={Number(contentId-1)}
+                  ></Page>
                 ) // 내용
               ) : (
                 <></>

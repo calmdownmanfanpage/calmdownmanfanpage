@@ -1,17 +1,42 @@
 import styled from "styled-components";
-import phraseJson from "../phrase.json";
-import { useState } from "react";
+// import phraseJson from "../phrase.json";
+import { useEffect, useState } from "react";
+import axios from 'axios';
 
-export default function Page({ children }: any) {
-  const phraseData = phraseJson.data[children];
-  const [likesState, setLikesState] = useState(phraseData.likes);
-  const [sharedState, setSharedState] = useState(phraseData.shared);
+export default function Page(props:any) {
 
-  const likeBtnClick = () => {
-    setLikesState(likesState + 1);
+
+  const pageId = props.pageId;
+  const [phraseData, setPhraseData] = useState<{
+    contentId:number, 
+    phrase:string,
+    likes:number, 
+    shared:number
+  }>({
+    contentId:0,
+    phrase:"",
+    likes:0,
+    shared:0,
+  });
+
+  useEffect(()=>{
+    (async () => {
+      const res = await axios.get(`http://localhost:3000/dongseon?pageId=${pageId+1}`);
+      console.log(res.data);
+      setPhraseData(res.data);
+    })();
+  },[])
+
+  const likeBtnClick = async () => {
+    setPhraseData({...phraseData, likes:phraseData.likes+1});
+    await axios.post('http://localhost:3000/dongseon/likes',{
+      pageId: phraseData.contentId, 
+      likes: phraseData.likes,
+    });
   };
+
   const shareBtnClick = () => {
-    setSharedState(sharedState + 1);
+    setPhraseData({...phraseData, shared:phraseData.shared+1});
 
     // Kakao API
     window.Kakao.Share.sendDefault({
@@ -20,6 +45,7 @@ export default function Page({ children }: any) {
         title: "침착맨 명언집",
         description: phraseData.phrase,
 
+        // 배포된 URL만 가능
         imageUrl:
           "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fbv2xr0%2FbtqWWs0bA7q%2FJIV43Kh4gbKPxCF08H7i90%2Fimg.png",
         link: {
@@ -29,24 +55,24 @@ export default function Page({ children }: any) {
         },
       },
       social: {
-        likeCount: likesState,
-        sharedCount: sharedState,
+        likeCount: phraseData.likes,
+        sharedCount: phraseData.shared,
       },
       buttons: [
         {
           title: "웹으로 보기",
           link: {
             // 명언집 링크
-            mobileWebUrl: "http://localhost:5173/dongseon",
-            webUrl: "http://localhost:5173/dongseon",
+            mobileWebUrl: "http://localhost:5173/dongseon/:pageId="+(pageId+2),
+            webUrl: "http://localhost:5173/dongseon/:pageId="+(pageId+2),
           },
         },
       ],
     });
   };
 
-  const likesData = likesState.toLocaleString();
-  const sharedData = sharedState.toLocaleString();
+  const likesData =  phraseData.likes.toLocaleString();
+  const sharedData = phraseData.shared.toLocaleString();
 
   return (
     <>

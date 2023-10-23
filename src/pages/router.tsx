@@ -38,10 +38,6 @@ export const router = createBrowserRouter([
         element: <Games />,
       },
       {
-        path: path.dongseon,
-        element: <PhrasePage />,
-      },
-      {
         path: path.dongseon+"/:id",
         element: <PhrasePage />,
       },
