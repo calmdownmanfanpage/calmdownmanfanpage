@@ -5,19 +5,21 @@ export default function AsyncComponent({
   isLoading,
   hasError,
   errorMessage,
+  retry,
   children,
 }: {
   isLoading: boolean;
   hasError: boolean;
   errorMessage?: string;
-  children: JSX.Element;
+  retry?: VoidFunction;
+  children?: JSX.Element;
 }) {
   return (
     <>
       {isLoading ? (
         <Loading />
       ) : hasError ? (
-        <ErrorMessage message={errorMessage} />
+        <ErrorMessage message={errorMessage} retry={retry} />
       ) : (
         children
       )}

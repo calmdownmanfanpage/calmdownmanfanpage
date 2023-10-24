@@ -18,7 +18,7 @@ const StyledContainer = styled.div`
   justify-content: center;
   align-items: center;
 
-  & img {
+  & > img {
     width: 80px;
     height: 80px;
     border-radius: 100%;
