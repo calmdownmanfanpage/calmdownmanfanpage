@@ -35,22 +35,29 @@ const StyledBody = styled.div`
 `;
 
 const StyledHeader = styled.header`
-  width: 100%;
-  background: #aca7cb;
+  width: 95%;
+  background: #d0d1d9;
   height: 100px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 10px solid #e3e0f3;
+  border: 10px solid #bbbcc6;
+  border-radius: 3px;
+  margin: 0 auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 `;
 const StyledHeaderTitle = styled.h1`
+  font-family: "Black Han Sans", sans-serif;
   font-size: 3rem;
   font-weight: 500;
 `;
 const StyledHeaderSubTitle = styled.p`
+  font-family: "Do Hyeon", sans-serif;
   font-size: 1.5rem;
-  color: #1f2023;
+  color: #565f6e;
 `;
 
 // #555555

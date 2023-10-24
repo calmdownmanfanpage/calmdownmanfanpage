@@ -1,18 +1,19 @@
 import styled from "styled-components";
 
 const StyledMain = styled.div`
-  width: 90%;
+  width: 95%;
   height: auto;
   display: flex;
   flex-direction: column;
-  background: #e3e0f3;
+  background: #f0f1f3;
   align-items: center;
-  border-radius: 5px;
-  margin: 10px 0 10px 0;
+  border-radius: 3px;
+  margin: 7px 0 7px 0;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 `;
 
 const StyledTitle = styled.h1`
-  font-family: arial, sans-sefif;
+  font-family: "Do Hyeon", sans-serif;
   font-size: 2.5rem;
   font-weight: 400;
   text-align: center;
@@ -20,10 +21,13 @@ const StyledTitle = styled.h1`
 `;
 
 const StyledExplain = styled.div`
+  font-family: "Noto Sans KR", sans-serif;
   width: 50%;
-  font-size: 1.3rem;
+  font-size: 1.5rem;
   text-align: center;
   line-height: 1.5;
+  white-space: pre-wrap;
+  text-align: left;
 `;
 const StyledVideo = styled.div`
   width: 100%;

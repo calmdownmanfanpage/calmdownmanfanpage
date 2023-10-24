@@ -12,8 +12,8 @@ export default function GTA5() {
     <>
       <StyledMain>
         <StyledTitle>
-          안산에서는 이게 일상이야! <br />
-          안산의 왕 침착맨의 안산 실황기 GTA5
+          안산은 이게 일상이야! <br />
+          안산 1타 강사 침착맨의 GTA5:안산드레아스 가이드
         </StyledTitle>
         <StyledExplain>{ExplainGames.gta5}</StyledExplain>
         <StyledVideo>
