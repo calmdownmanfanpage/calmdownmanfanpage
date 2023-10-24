@@ -2,8 +2,7 @@ import { useState, useEffect } from "react";
 import MemeContainer from "./components/MemeContainer";
 import { MemeType } from "./components/Meme";
 import { getMemes } from "./apis/memes";
-import Loading from "../../components/Loading";
-import ErrorMessage from "../../components/ErrorMessage";
+import AsyncContainer from "../../components/AsyncContainer";
 
 export default function MemePage() {
   const [memes, setMemes] = useState<MemeType[] | null>(null);
@@ -26,11 +25,13 @@ export default function MemePage() {
     })();
   }, []);
 
-  return isLoading ? (
-    <Loading />
-  ) : !memes ? (
-    <ErrorMessage message={errorMessage} />
-  ) : (
-    <MemeContainer memes={memes} />
+  return (
+    <AsyncContainer
+      isLoading={isLoading}
+      hasError={!memes}
+      errorMessage={errorMessage}
+    >
+      <MemeContainer memes={memes!} />
+    </AsyncContainer>
   );
 }

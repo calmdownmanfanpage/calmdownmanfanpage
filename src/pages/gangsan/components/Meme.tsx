@@ -4,9 +4,7 @@ import { useState } from "react";
 
 export type MemeType = {
   title: string;
-  author: string;
   src: string;
-  link: string;
 };
 
 export default function Meme(props: { meme: MemeType }) {
