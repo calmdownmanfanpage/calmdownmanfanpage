@@ -7,8 +7,6 @@ import Page from "./components/Page";
 import FrontCover from "./components/FrontCover";
 import BackCover from "./components/BackCover";
 
-// 내장 데이터 (수정중)
-// import phraseJson from "./phrase.json";
 import axios from 'axios';
 
 export default function PhrasePage() {
@@ -16,7 +14,7 @@ export default function PhrasePage() {
   const navigate = useNavigate();
   const location = useLocation();
 
-
+  // url이 변경되면 contentId를 url의 pageId로 맞춤
   useEffect(()=>{
     const pageId = parseInt(location.pathname.split("=")[1]);
     if(pageId) {
@@ -25,36 +23,30 @@ export default function PhrasePage() {
   }, [location])
 
   useEffect(()=>{
-    // url pageId 적용
+    // url에 pageId 적용
     const pageId = parseInt(location.pathname.split("=")[1]);
     if(pageId) {
       setContentId(pageId);
     }
 
-    //서버에서 data 가져오기
+    // 서버에서 data 가져오기
     try{
-      axiosGet()
-        .then(res=>{
-          setContentLimit(parseContentLimit(res.data.length));
-        });
+      (async ()=>{
+        const res = await axios.get('http://localhost:3000/phrase');
+        setContentLimit(parseContentLimit(res.data.length));
+      })();
     }catch(err){
       console.log(err);
     }
   }, []);
 
-  const axiosGet = async ()=>{
-    return await axios.get('http://localhost:3000/dongseon');
-  }
-
 
   // 총 컨텐츠 개수 (짝수로 맞추기)
   const parseContentLimit = (phraseLen:number):number => {
     if (phraseLen % 2 === 0) {
-      // 앞표지 2장 추가
-      return phraseLen + 2;
+      return phraseLen + 2; // 앞표지 2장 추가
     }
-    // 앞표지 2장 + 짝수 맞추기 1장 추가
-    return phraseLen + 3;
+    return phraseLen + 3; // 앞표지 2장 + 짝수 맞추기 1장 추가
   };
   
   const [contentLimit, setContentLimit] = useState(0);
@@ -68,9 +60,9 @@ export default function PhrasePage() {
   // 클릭시 페이지를 넘기고 내용을 업데이트함
   const leftPageClick = () => {
     if (contentId === 0) return;
-
     setLeftFlip(true);
     setEventPause(true);
+    // 에니메이션이 끝나는 1초 후 내용 띄우기
     setTimeout(() => {
       setLeftFlip(false);
       setEventPause(false);
@@ -82,9 +74,9 @@ export default function PhrasePage() {
   // 클릭시 페이지를 넘기고 내용을 업데이트함
   const rightPageClick = () => {
     if (contentId === contentLimit) return;
-
     setRightFlip(true);
     setEventPause(true);
+    // 에니메이션이 끝나는 1초 후 내용 띄우기
     setTimeout(() => {
       setRightFlip(false);
       setEventPause(false);
@@ -107,8 +99,6 @@ export default function PhrasePage() {
             )}
           </StyledBackgroundCover>
 
-          {/* 페이지 애니메이션 기능 */}
-
           {/* 왼쪽 페이지 */}
           {contentId === 0 ? (
             <></> // 첫장 왼쪽페이지 안보이게
@@ -121,12 +111,12 @@ export default function PhrasePage() {
               <StyledFlipBtnLeft onClick={leftPageClick}></StyledFlipBtnLeft>
               {!isLeftFliped && !isRightFliped ? (
                 contentId === contentLimit ? (
-                  <BackCover></BackCover> // 뒷표지
+                   // 뒷표지
+                  <BackCover></BackCover>
                 ) : (
-                  <Page
-                    pageId={Number(contentId-2)}
-                  ></Page>
-                ) // 내용
+                   // 내용
+                  <Page pageId={Number(contentId-2)}></Page>
+                )
               ) : (
                 <></>
               )}
@@ -142,27 +132,29 @@ export default function PhrasePage() {
               $eventPause={eventPause}
               id="rightPage"
             >
+              {/* 페이지 넘기는 버튼 */}
               <StyledFlipBtnRight onClick={rightPageClick}></StyledFlipBtnRight>
               {!isLeftFliped && !isRightFliped ? (
                 contentId === 0 ? (
-                  <FrontCover></FrontCover> // 앞표지
+                   // 앞표지
+                  <FrontCover></FrontCover>
                 ) : (
-                  <Page
-                  pageId={Number(contentId-1)}
-                  ></Page>
-                ) // 내용
+                   // 내용
+                  <Page pageId={Number(contentId-1)}></Page>
+                )
               ) : (
                 <></>
               )}
             </StyledSectionRight>
           )}
+
         </StyledDiv>
       </StyledMain>
     </>
   );
 }
 
-// pageSection
+// phrasePage 배경
 const StyledMain = styled.main`
   width: 100vw;
   height: calc(100vh - ${HEADER_HEIGHT}px);
@@ -177,12 +169,17 @@ const StyledMain = styled.main`
   justify-content: center;
 `;
 
+// 명언집 본체
 const StyledDiv = styled.div`
   width: 80vw;
   height: 80vh;
   display: flex;
   z-index: -2;
   perspective: 2500px;
+  transition: height 200ms ease-in-out;
+  @media screen and (max-width: 1000px){
+    height: 50vh;
+  }
 `;
 
 const StyledBackgroundCover = styled.div`
