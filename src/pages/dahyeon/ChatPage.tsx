@@ -1,10 +1,10 @@
 import styled, { css } from "styled-components";
 import { useContext } from "react";
-import { NavBar } from "../components";
+import { NavBar } from "../../components";
 import { HEADER_HEIGHT } from "../../styles/contants";
 import { ChatContext } from "../../context/ChatContext";
 import { AuthContext } from "../../context/AuthContext";
-import { UserChat, PotentialChats, ChatBox } from "../components/chat";
+import { UserChat, PotentialChats, ChatBox } from "../../components/chat";
 
 function ChatPage() {
   const { user } = useContext(AuthContext);

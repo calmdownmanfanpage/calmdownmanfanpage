@@ -1,12 +1,12 @@
 import styled, { css } from "styled-components";
 import { useContext } from "react";
-import { ChatContext } from "../../../context/ChatContext";
-import { AuthContext } from "../../../context/AuthContext";
-import { HEADER_HEIGHT } from "../../../styles/contants";
+import { ChatContext } from "../../context/ChatContext";
+import { AuthContext } from "../../context/AuthContext";
+import { HEADER_HEIGHT } from "../../styles/contants";
 
 function PotentialChats() {
   const { user } = useContext(AuthContext);
-  const { potentialChats, createChat } = useContext(ChatContext);
+  const { potentialChats, createChat, onlineUsers } = useContext(ChatContext);
 
   return (
     <StyledPotentialChatBox>
@@ -18,7 +18,15 @@ function PotentialChats() {
               onClick={() => createChat(user._id, u._id)}
             >
               {u.name}
-              <span className="alert"></span>
+              <span
+                className={
+                  onlineUsers?.some(
+                    (onlineUser) => onlineUser?.userId === u?._id,
+                  )
+                    ? "alert"
+                    : ""
+                }
+              ></span>
             </StyledPotentialChatCard>
           );
         })}
@@ -71,7 +79,6 @@ const StyledPotentialChatCard = styled.article`
 
   .alert {
     display: inline-block;
-    border: 1px solid red;
     background-color: red;
     width: 7px;
     height: 7px;

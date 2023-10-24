@@ -1,8 +1,8 @@
 import styled, { css } from "styled-components";
 import { useContext, useState } from "react";
-import { AuthContext } from "../../../context/AuthContext";
-import { ChatContext } from "../../../context/ChatContext";
-import { useFetchRecipientUser } from "../../../hooks/useFetchRecipient";
+import { AuthContext } from "../../context/AuthContext";
+import { ChatContext } from "../../context/ChatContext";
+import { useFetchRecipientUser } from "../../hooks/useFetchRecipient";
 import moment from "moment";
 import "moment/dist/locale/ko";
 import InputEmoji from "react-input-emoji";
@@ -16,6 +16,7 @@ function ChatBox() {
     messagesError,
     sendTextMessage,
   } = useContext(ChatContext);
+
   const { recipientUser } = useFetchRecipientUser(currentChat, user);
   const [textMessage, setTextMessage] = useState(""); //채팅 글
 
@@ -83,7 +84,6 @@ const StyledChatBox = styled.section`
   width: 100%;
   height: 48rem;
   border-radius: 7px;
-  cursor: pointer;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
   position: relative;
 
@@ -92,7 +92,26 @@ const StyledChatBox = styled.section`
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    height: 41rem;
+    overflow: auto;
+    scrollbar-color: #d4aa70 #e4e4e4;
+    scrollbar-width: thin;
   }
+  .messageWrap::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  .messageWrap::-webkit-scrollbar-track {
+    background-color: #e4e4e4;
+    border-radius: 100px;
+  }
+
+  .messageWrap::-webkit-scrollbar-thumb {
+    border-left: 0;
+    border-right: 0;
+    background-color: gray;
+  }
+
   strong {
     display: block;
     border-radius: 7px;

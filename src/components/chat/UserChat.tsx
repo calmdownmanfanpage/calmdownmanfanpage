@@ -1,11 +1,15 @@
 import styled, { css } from "styled-components";
 import { useContext } from "react";
-import { useFetchRecipientUser } from "../../../hooks/useFetchRecipient";
-import { ChatContext } from "../../../context/ChatContext";
+import { useFetchRecipientUser } from "../../hooks/useFetchRecipient";
+import { ChatContext } from "../../context/ChatContext";
 
 function UserChat({ chat, user }) {
-  const { updateCurrentChat } = useContext(ChatContext);
+  const { updateCurrentChat, onlineUsers } = useContext(ChatContext);
   const { recipientUser } = useFetchRecipientUser(chat, user);
+
+  const isOnline = onlineUsers?.some(
+    (onlineUser) => onlineUser?.userId === recipientUser?._id,
+  );
 
   return (
     <StyledChatCard onClick={() => updateCurrentChat(chat)}>
@@ -17,7 +21,7 @@ function UserChat({ chat, user }) {
         <p>야야 요즘 너 잘지내고 있냐? 얼마전에 생일이던데 ㅋㅋㅋ 축하한다 </p>
         <span>2</span>
       </div>
-      <span className="alert"></span>
+      <span className={isOnline ? "alert" : ""}></span>
     </StyledChatCard>
   );
 }
@@ -32,8 +36,15 @@ const StyledChatCard = styled.article`
   cursor: pointer;
   transition: transform 0.1s linear;
   &:hover {
-    transform: scale(1.02);
+    /* transform: scale(1.02); */
+    background-color: #f7fafa;
+
     transition: transform 0.1s linear;
+  }
+  &:focus {
+    border-color: #008296;
+    box-shadow: rgba(213, 217, 217, 0.5) 0 2px 5px 0;
+    outline: 0;
   }
 
   header {

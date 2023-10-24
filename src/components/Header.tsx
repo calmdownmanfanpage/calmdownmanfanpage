@@ -25,24 +25,20 @@ export default function Header() {
           </StyledMenuWrapper>
           {/* 유저 정보가 있을 때 */}
           {user && (
-            <div style={{ width: "15%" }}>
-              <span>{user?.name}</span> 님
-              <Link
-                onClick={logoutUser}
-                to={path.login}
-                style={{ display: "block" }}
-              >
+            <StyledAuthBox>
+              <span>{user?.name} 님</span>
+              <Link onClick={logoutUser} to={path.login}>
                 로그아웃
               </Link>
-            </div>
+            </StyledAuthBox>
           )}
 
           {/* 유저 정보가 없을 때 */}
           {!user && (
-            <div>
+            <StyledAuthBox>
               <Link to={path.login}>로그인</Link>
               <Link to={path.register}>회원가입</Link>
-            </div>
+            </StyledAuthBox>
           )}
 
           <StyledMenuButton onClick={handleOpenMenu} />
@@ -139,5 +135,27 @@ const StyledMenuButton = styled.button`
   }
   @media screen and (min-width: 834px) {
     display: none;
+  }
+`;
+
+const StyledAuthBox = styled.div`
+  width: 12.875rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  span {
+    font-weight: bold;
+    cursor: pointer;
+  }
+  a {
+    border-radius: 20px;
+    border: none;
+    outline: none;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 7px 14px;
+    letter-spacing: 1px;
+    cursor: pointer;
+    box-shadow: -5px -5px 10px #fff, 5px 5px 8px #babebc;
   }
 `;

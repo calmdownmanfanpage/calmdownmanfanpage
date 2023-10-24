@@ -1,5 +1,6 @@
 import { createContext, useState, useCallback, useEffect } from "react";
 import { baseUrl, postRequest, getRequest } from "../utils/services";
+import { io } from "socket.io-client";
 
 const ChatContext = createContext(null);
 
@@ -15,9 +16,51 @@ const ChatContextProvider = ({ children, user }) => {
   const [messagesError, setMessagesError] = useState(); //가져온 메시지 에러
   const [sendTextMessageError, setSendTextMessageError] = useState(); //보내는 메시지 에러
   const [newMessage, setNewMessage] = useState();
+  const [socket, setSocket] = useState(null);
+  const [onlineUsers, setOnlineUsers] = useState([]);
 
-  console.log("messages : ", messages);
-  console.log("currentChat : ", currentChat);
+  console.log("socekt: ", socket);
+
+  //initial socket
+  useEffect(() => {
+    const newSocket = io("http://localhost:3000");
+    setSocket(newSocket);
+
+    //cleanup function
+    return () => {
+      newSocket.disconnect();
+    };
+  }, [user]);
+
+  // 온라인 유저 추가
+  useEffect(() => {
+    if (socket === null) return;
+    socket.emit("addNewUser", user?._id);
+    //listen from server
+    socket.on("getOnlineUsers", (res) => {
+      setOnlineUsers(res);
+    });
+  }, [socket]);
+
+  //메시지 보내기
+  useEffect(() => {
+    if (socket === null) return;
+    const recipientId = currentChat?.members.find((id) => id !== user?._id); //채팅 상대방 유저 찾기
+
+    socket.emit("sendMessage", { ...newMessage, recipientId });
+  }, [newMessage]);
+
+  //메시지 받기
+  useEffect(() => {
+    if (socket === null) return;
+
+    socket.on("getMessage", (res) => {
+      if (currentChat?._id !== res.chatId) return;
+
+      setMessages((prev) => [...prev, res]);
+    });
+  }, [socket, currentChat]);
+
   //로그인한 유저를 제외한 모든 유저정보를 불러와
   //그 중 채팅기록이 없는 상대 유저정보들 세팅
   useEffect(() => {
@@ -102,9 +145,9 @@ const ChatContextProvider = ({ children, user }) => {
       const response = await postRequest(
         `${baseUrl}/messages`,
         JSON.stringify({
-          chatId: currentChatId,
-          senderId: sender._id,
-          text: textMessage,
+          chatId: currentChatId, //채팅방 아이디
+          senderId: sender._id, //메시지 보내는 유저 아이디
+          text: textMessage, //채팅 메시지
         }),
       );
 
@@ -130,8 +173,8 @@ const ChatContextProvider = ({ children, user }) => {
     const response = await postRequest(
       `${baseUrl}/chats`,
       JSON.stringify({
-        firstId,
-        secondId,
+        firstId, //로그인 유저
+        secondId, //상대방 유저
       }),
     );
     if (response.error)
@@ -155,6 +198,7 @@ const ChatContextProvider = ({ children, user }) => {
         isMessagesLoading,
         messagesError,
         sendTextMessage,
+        onlineUsers,
       }}
     >
       {children}
