@@ -1,11 +1,14 @@
 import styled, { css } from "styled-components";
+import { useContext } from "react";
 import { useFetchRecipientUser } from "../../../hooks/useFetchRecipient";
+import { ChatContext } from "../../../context/ChatContext";
 
 function UserChat({ chat, user }) {
+  const { updateCurrentChat } = useContext(ChatContext);
   const { recipientUser } = useFetchRecipientUser(chat, user);
 
   return (
-    <StyledChatCard>
+    <StyledChatCard onClick={() => updateCurrentChat(chat)}>
       <header>
         <h2>{recipientUser?.name}</h2>
         <span>2023-10-19 </span>
@@ -32,6 +35,7 @@ const StyledChatCard = styled.article`
     transform: scale(1.02);
     transition: transform 0.1s linear;
   }
+
   header {
     display: flex;
     justify-content: space-between;
