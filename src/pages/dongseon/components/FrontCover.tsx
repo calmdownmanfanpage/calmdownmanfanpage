@@ -38,5 +38,5 @@ const StyledCoverImg = styled.img`
     width: 100%;
     height: 40%;
     object-fit: cover;
-        pointer-events: none;
+    pointer-events: none;
 `

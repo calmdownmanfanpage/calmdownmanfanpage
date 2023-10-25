@@ -1,10 +1,10 @@
 import styled from 'styled-components';
-import coverImg from '../img/back.jpeg'
+import coverImg from '../img/back.jpg'
 
 export default function FrontCover(){
     return<>
         <StyledFrontCover>
-            <StyledCoverTitle>end</StyledCoverTitle>
+            <StyledCoverTitle>END</StyledCoverTitle>
             <StyledCoverImg src={coverImg}></StyledCoverImg>
         </StyledFrontCover>
     </>
@@ -29,7 +29,6 @@ const StyledCoverTitle = styled.div`
     color: white;
     font-size: 2em;
 
-    /* writing-mode: vertical-lr; */
     letter-spacing: 10px;
     line-height: 50px;
 `
@@ -38,5 +37,5 @@ const StyledCoverImg = styled.img`
     width: 100%;
     height: 40%;
     object-fit: cover;
-        pointer-events: none;
+    pointer-events: none;
 `
