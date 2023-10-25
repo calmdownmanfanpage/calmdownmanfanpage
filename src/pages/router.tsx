@@ -39,6 +39,10 @@ export const router = createBrowserRouter([
         element: <GamePage />,
       },
       {
+        path: path.dongseon,
+        element: <PhrasePage />,
+      },
+      {
         path: path.dongseon+"/:id",
         element: <PhrasePage />,
       },

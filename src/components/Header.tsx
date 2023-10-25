@@ -18,10 +18,10 @@ export default function Header() {
         <StyledContainer>
           <StyledImageLink to={path.root} />
           <StyledMenuWrapper $isOpened={isOpened}>
-            <StyledLink to={path.dongseon+"/:pageId=0"}>동선</StyledLink>
-            <StyledLink to={path.games}>정운</StyledLink>
-            <StyledLink to={path.dahyeon}>다현</StyledLink>
             <StyledLink to={path.meme}>모든 밈들의 신</StyledLink>
+            <StyledLink to={path.games}>게임 모음집</StyledLink>
+            <StyledLink to={path.dongseon}>명언집</StyledLink>
+            <StyledLink to={path.dahyeon}>채팅방</StyledLink>
           </StyledMenuWrapper>
           {/* 유저 정보가 있을 때 */}
           {user && (

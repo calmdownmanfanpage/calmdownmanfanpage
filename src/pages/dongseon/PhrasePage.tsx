@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import { useEffect, useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, useParams } from "react-router-dom";
 
 import { HEADER_HEIGHT } from "../../styles/contants";
 import Page from "./components/Page";
@@ -12,21 +12,25 @@ import axios from 'axios';
 export default function PhrasePage() {
   // Url 변경
   const navigate = useNavigate();
-  const location = useLocation();
+  const params = useParams();
+
 
   // url이 변경되면 contentId를 url의 pageId로 맞춤
   useEffect(()=>{
-    const pageId = parseInt(location.pathname.split("=")[1]);
-    if(pageId) {
-      setContentId(pageId);
+    if(params.id){
+      setContentId(Number(params.id));
+    }else{
+      setContentId(0);
     }
-  }, [location])
+    
+  }, [params])
 
   useEffect(()=>{
     // url에 pageId 적용
-    const pageId = parseInt(location.pathname.split("=")[1]);
-    if(pageId) {
-      setContentId(pageId);
+    if(params.id){
+      setContentId(Number(params.id));
+    }else{
+      setContentId(0);
     }
 
     // 서버에서 data 가져오기
@@ -67,7 +71,7 @@ export default function PhrasePage() {
       setLeftFlip(false);
       setEventPause(false);
       setContentId(contentId - 2);
-      navigate(`/dongseon/:pageId=${contentId-2}`);
+      navigate(`/dongseon/${contentId-2}`);
     }, 1000);
   };
 
@@ -81,7 +85,7 @@ export default function PhrasePage() {
       setRightFlip(false);
       setEventPause(false);
       setContentId(contentId + 2);
-      navigate(`/dongseon/:pageId=${contentId+2}`);
+      navigate(`/dongseon/${contentId+2}`);
     }, 1000);
   };
 
