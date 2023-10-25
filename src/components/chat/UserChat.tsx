@@ -1,20 +1,48 @@
 import styled, { css } from "styled-components";
-import { useFetchRecipientUser } from "../../../hooks/useFetchRecipient";
+import { useContext } from "react";
+import { useFetchRecipientUser } from "../../hooks/useFetchRecipient";
+import { ChatContext } from "../../context/ChatContext";
+import unreadNotificationsFunc from "../../utils/unreadNotifications";
+import useFetchLatestMessage from "../../hooks/useFetchLatesMessage";
+import moment from "moment";
 
 function UserChat({ chat, user }) {
+  const {
+    updateCurrentChat,
+    onlineUsers,
+    notifications,
+    markThisUserNotificationAsRead,
+  } = useContext(ChatContext);
   const { recipientUser } = useFetchRecipientUser(chat, user);
+  const { latestMessage } = useFetchLatestMessage(chat);
+  const unreadNotifications = unreadNotificationsFunc(notifications);
+  const thisUserNotifications = unreadNotifications?.filter(
+    (noti) => noti.senderId === recipientUser?._id,
+  );
+  const isOnline = onlineUsers?.some(
+    (onlineUser) => onlineUser?.userId === recipientUser?._id,
+  );
 
   return (
-    <StyledChatCard>
+    <StyledChatCard
+      onClick={() => {
+        updateCurrentChat(chat);
+        if (thisUserNotifications?.length !== 0) {
+          markThisUserNotificationAsRead(thisUserNotifications, notifications);
+        }
+      }}
+    >
       <header>
         <h2>{recipientUser?.name}</h2>
-        <span>2023-10-19 </span>
+        <span>{moment(latestMessage?.createdAt).calendar()} </span>
       </header>
       <div className="message">
-        <p>야야 요즘 너 잘지내고 있냐? 얼마전에 생일이던데 ㅋㅋㅋ 축하한다 </p>
-        <span>2</span>
+        <p>{latestMessage?.text} </p>
+        {thisUserNotifications?.length > 0 && (
+          <span>{thisUserNotifications?.length}</span>
+        )}
       </div>
-      <span className="alert"></span>
+      <span className={isOnline ? "alert" : ""}></span>
     </StyledChatCard>
   );
 }
@@ -29,9 +57,17 @@ const StyledChatCard = styled.article`
   cursor: pointer;
   transition: transform 0.1s linear;
   &:hover {
-    transform: scale(1.02);
+    /* transform: scale(1.02); */
+    background-color: #f7fafa;
+
     transition: transform 0.1s linear;
   }
+  &:focus {
+    border-color: #008296;
+    box-shadow: rgba(213, 217, 217, 0.5) 0 2px 5px 0;
+    outline: 0;
+  }
+
   header {
     display: flex;
     justify-content: space-between;

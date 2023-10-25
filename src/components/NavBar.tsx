@@ -1,12 +1,13 @@
 import styled, { css } from "styled-components";
 import { Link } from "react-router-dom";
-import { HEADER_MAX_WIDTH } from "../../styles/contants";
+import { HEADER_MAX_WIDTH } from "../styles/contants";
+
 const NavBar = () => {
   return (
     <Navbar>
       <div>
         <StyledLink to="/dahyeon">
-          <h2>채팅 앱</h2>
+          <h2>팬들과의 소통방</h2>
         </StyledLink>
       </div>
     </Navbar>
