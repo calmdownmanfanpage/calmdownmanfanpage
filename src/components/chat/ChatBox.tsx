@@ -19,11 +19,11 @@ function ChatBox() {
 
   const { recipientUser } = useFetchRecipientUser(currentChat, user);
   const [textMessage, setTextMessage] = useState(""); //채팅 글
-  const scroll = useRef();
+  const scroll = useRef<any>();
 
   //스크롤 내리기
   useEffect(() => {
-    scroll.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+    scroll?.current?.scrollIntoView({ behavior: "smooth", block: "end" });
   }, [messages]);
 
   if (!recipientUser)
@@ -133,7 +133,7 @@ const StyledChatBox = styled.section`
   }
 `;
 
-const StyledMessageBox = styled.div`
+const StyledMessageBox = styled.div<{ state: string }>`
   display: block;
   max-width: 20rem;
   width: fit-content;

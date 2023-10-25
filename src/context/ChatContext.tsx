@@ -2,23 +2,23 @@ import { createContext, useState, useCallback, useEffect } from "react";
 import { baseUrl, postRequest, getRequest } from "../utils/services";
 import { io } from "socket.io-client";
 
-const ChatContext = createContext(null);
+const ChatContext = createContext<any>(null);
 
 //user : 현재 로그인한 유저
 const ChatContextProvider = ({ children, user }) => {
-  const [userChats, setUserChats] = useState(); //로그인한 유저의 채팅 리스트
+  const [userChats, setUserChats] = useState<any>(); //로그인한 유저의 채팅 리스트
   const [isUserChatsLoading, setIsUserChatsLoading] = useState(false);
-  const [userChatError, setUserChatError] = useState();
+  const [userChatError, setUserChatError] = useState<any>();
   const [potentialChats, setPotentialChats] = useState([]); //아직 채팅안한 리스트
-  const [currentChat, setCurrentChat] = useState(null);
-  const [messages, setMessages] = useState(); //특정 채팅방안의 모든 메시지들
+  const [currentChat, setCurrentChat] = useState<any>(null);
+  const [messages, setMessages] = useState<any>(); //특정 채팅방안의 모든 메시지들
   const [isMessagesLoading, setIsMessagesLoading] = useState(false);
-  const [messagesError, setMessagesError] = useState(); //가져온 메시지 에러
+  const [messagesError, setMessagesError] = useState<any>(); //가져온 메시지 에러
   const [sendTextMessageError, setSendTextMessageError] = useState(); //보내는 메시지 에러
-  const [newMessage, setNewMessage] = useState(); //새로 보내는 메시지
-  const [socket, setSocket] = useState(null);
+  const [newMessage, setNewMessage] = useState<any>(); //새로 보내는 메시지
+  const [socket, setSocket] = useState<any>(null);
   const [onlineUsers, setOnlineUsers] = useState([]); //로그인한 유저들
-  const [notifications, setNotifications] = useState([]); //메시지 알람
+  const [notifications, setNotifications] = useState<any>([]); //메시지 알람
   const [allUsers, setAllUsers] = useState([]); //메시지 알람
 
   // console.log("onlineUsers : ", onlineUsers);
@@ -84,7 +84,7 @@ const ChatContextProvider = ({ children, user }) => {
     const getUsers = async () => {
       const response = await getRequest(`${baseUrl}/users`);
       if (response.error) {
-        return console.log("getUsers error : ", error);
+        return console.log("getUsers error : ", response.error);
       }
 
       const pChats = response.filter((u) => {
@@ -258,7 +258,7 @@ const ChatContextProvider = ({ children, user }) => {
 
   return (
     <ChatContext.Provider
-      displayName="Context Display Name"
+      // displayName="Context Display Name"
       value={{
         userChats,
         isUserChatsLoading,

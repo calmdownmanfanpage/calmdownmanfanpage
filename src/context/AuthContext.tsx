@@ -1,14 +1,9 @@
 import { createContext, useState, useCallback, useEffect } from "react";
 import { baseUrl, postRequest } from "../utils/services";
 
-type User = {
-  name: string;
-  email: string;
-};
-
-const AuthContext = createContext(null); //context객체 생성
-const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
-  const [user, setUser] = useState<User>();
+const AuthContext = createContext<any>(null); //context객체 생성
+const AuthContextProvider = ({ children }) => {
+  const [user, setUser] = useState(null);
   const [registerError, setRegisterError] = useState(null);
   const [isRegisterLoading, setIsRegisterLoading] = useState(false);
   const [registerInfo, setRegisterInfo] = useState({
@@ -26,7 +21,7 @@ const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
   //새로고침시에도 유저정보 유지
   useEffect(() => {
     const user = localStorage.getItem("User");
-    setUser(JSON.parse(user));
+    if (user !== null) setUser(JSON.parse(user));
   }, []);
 
   const updateRegisterInfo = useCallback((info) => {
