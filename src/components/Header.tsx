@@ -12,16 +12,18 @@ export default function Header() {
 
   const { user, logoutUser } = useContext(AuthContext);
 
+
+
   return (
     <>
       <StyledHeader>
         <StyledContainer>
           <StyledImageLink to={path.root} />
           <StyledMenuWrapper $isOpened={isOpened}>
-            <StyledLink to={path.meme}>모든 밈들의 신</StyledLink>
-            <StyledLink to={path.games}>게임 모음집</StyledLink>
-            <StyledLink to={path.dongseon}>명언집</StyledLink>
-            <StyledLink to={path.dahyeon}>채팅방</StyledLink>
+            <StyledLink onClick={handleOpenMenu} to={path.meme}>모든 밈들의 신</StyledLink>
+            <StyledLink onClick={handleOpenMenu} to={path.games}>게임 모음집</StyledLink>
+            <StyledLink onClick={handleOpenMenu} to={path.dongseon}>명언집</StyledLink>
+            <StyledLink onClick={handleOpenMenu} to={path.dahyeon}>채팅방</StyledLink>
           </StyledMenuWrapper>
           {/* 유저 정보가 있을 때 */}
           {user && (
@@ -75,6 +77,7 @@ const StyledMenuWrapper = styled.div<{ $isOpened: boolean }>`
   background-color: #f5f5f7;
   font-size: 12px;
   transition: all 0.5s;
+  z-index: 100;
   @media screen and (max-width: 834px) {
     ${({ $isOpened }) => {
       return $isOpened
