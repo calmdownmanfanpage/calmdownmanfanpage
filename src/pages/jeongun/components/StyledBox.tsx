@@ -18,16 +18,22 @@ const StyledTitle = styled.h1`
   font-weight: 400;
   text-align: center;
   line-height: 1.5;
+  @media screen and (max-width: 1000px) {
+    font-size: 1.5rem;
+  }
 `;
 
 const StyledExplain = styled.div`
   font-family: "Noto Sans KR", sans-serif;
-  width: 50%;
+  width: 70%;
   font-size: 1.5rem;
   text-align: center;
   line-height: 1.5;
   white-space: pre-wrap;
   text-align: left;
+  @media screen and (max-width: 1000px) {
+    font-size: 1rem;
+  }
 `;
 const StyledVideo = styled.div`
   width: 100%;

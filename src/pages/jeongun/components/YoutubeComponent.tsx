@@ -5,7 +5,7 @@ export default function YoutubeComponent(props: { id: string }) {
     <>
       <iframe
         id="ytplayer"
-        width="500rem"
+        width="30%"
         height="350rem"
         src={`https://www.youtube.com/embed/${id}`}
         style={{
