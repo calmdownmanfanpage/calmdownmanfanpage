@@ -1,4 +1,4 @@
-const baseUrl = "http://localhost:5000/api";
+const baseUrl = `${import.meta.env.VITE_BACKEND_URL}/api`;
 
 const postRequest = async (url: string, body: string) => {
   const response = await fetch(url, {
