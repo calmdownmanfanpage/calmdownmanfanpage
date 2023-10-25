@@ -6,6 +6,7 @@ import MemePage from "./gangsan/MemePage";
 import { Login, Register, CheckLogin } from "../pages/dahyeon/index";
 import Games from "./jeongun/Games";
 
+
 export const path = {
   root: "/",
   dongseon: "/dongseon",
@@ -35,7 +36,7 @@ export const router = createBrowserRouter([
       },
       {
         path: path.games,
-        element: <Games />,
+        element: <GamePage />,
       },
       {
         path: path.dongseon,
