@@ -26,8 +26,6 @@ function Notification() {
     };
   });
 
-  console.log("unreadNotifications : ", unreadNotifications);
-  console.log("modifiedNotifications : ", modifiedNotifications);
   return (
     <StyledNotificationBox>
       <svg

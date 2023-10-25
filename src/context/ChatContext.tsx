@@ -21,10 +21,6 @@ const ChatContextProvider = ({ children, user }) => {
   const [notifications, setNotifications] = useState<any>([]); //메시지 알람
   const [allUsers, setAllUsers] = useState([]); //메시지 알람
 
-  // console.log("onlineUsers : ", onlineUsers);
-  // console.log("currentChat : ", currentChat);
-  // console.log("messages : ", messages);
-  console.log("notifications : ", notifications);
 
   //initial socket
   useEffect(() => {

@@ -20,7 +20,7 @@ export default function Meme(props: { meme: MemeType }) {
         onMouseEnter={toggleMouseHover}
         onMouseLeave={toggleMouseHover}
       >
-        <StyledDescription isHover={isHover}>{meme.title}</StyledDescription>
+        <StyledDescription $isHover={isHover}>{meme.title}</StyledDescription>
         <StyledSquareWrapper>
           <StyledImage src={meme.src} />
         </StyledSquareWrapper>
@@ -43,15 +43,15 @@ const StyledContainer = styled.div`
   scroll-snap-stop: always;
 `;
 
-const StyledDescription = styled.div<{ isHover: boolean }>`
+const StyledDescription = styled.div<{ $isHover: boolean }>`
   position: absolute;
   z-index: 2;
   color: transparent;
   transition: 0.2s all;
 
-  ${({ isHover }) => {
+  ${({ $isHover }) => {
     return (
-      isHover &&
+      $isHover &&
       css`
         color: #f0f0f0;
         background: linear-gradient(#121212, 60%, transparent);
