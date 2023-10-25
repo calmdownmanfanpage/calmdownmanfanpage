@@ -53,11 +53,17 @@ const StyledHeaderTitle = styled.h1`
   font-family: "Black Han Sans", sans-serif;
   font-size: 3rem;
   font-weight: 500;
+  @media screen and (max-width: 1000px) {
+    font-size: 2rem;
+  }
 `;
 const StyledHeaderSubTitle = styled.p`
   font-family: "Do Hyeon", sans-serif;
   font-size: 1.5rem;
   color: #565f6e;
+  @media screen and (max-width: 1000px) {
+    font-size: 1.5rem;
+  }
 `;
 
 // #555555
