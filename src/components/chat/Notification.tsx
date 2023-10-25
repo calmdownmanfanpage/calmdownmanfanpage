@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { ChatContext } from "../../context/ChatContext";
 import { AuthContext } from "../../context/AuthContext";
 import unreadNotificationsFunc from "../../utils/unreadNotifications";

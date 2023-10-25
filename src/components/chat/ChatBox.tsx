@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { useContext, useEffect, useRef, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { ChatContext } from "../../context/ChatContext";
@@ -13,7 +13,7 @@ function ChatBox() {
     currentChat,
     messages,
     isMessagesLoading,
-    messagesError,
+    // messagesError,
     sendTextMessage,
   } = useContext(ChatContext);
 

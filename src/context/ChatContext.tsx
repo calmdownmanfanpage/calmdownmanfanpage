@@ -14,7 +14,7 @@ const ChatContextProvider = ({ children, user }) => {
   const [messages, setMessages] = useState<any>(); //특정 채팅방안의 모든 메시지들
   const [isMessagesLoading, setIsMessagesLoading] = useState(false);
   const [messagesError, setMessagesError] = useState<any>(); //가져온 메시지 에러
-  const [sendTextMessageError, setSendTextMessageError] = useState(); //보내는 메시지 에러
+  // const [sendTextMessageError, setSendTextMessageError] = useState(); //보내는 메시지 에러
   const [newMessage, setNewMessage] = useState<any>(); //새로 보내는 메시지
   const [socket, setSocket] = useState<any>(null);
   const [onlineUsers, setOnlineUsers] = useState([]); //로그인한 유저들
@@ -166,7 +166,8 @@ const ChatContextProvider = ({ children, user }) => {
       );
 
       if (response.error) {
-        return setSendTextMessageError(response);
+        // return setSendTextMessageError(response);
+        console.log(response);
       }
 
       setNewMessage(response);

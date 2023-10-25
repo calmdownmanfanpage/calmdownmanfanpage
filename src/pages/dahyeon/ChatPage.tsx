@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { useContext } from "react";
 import { NavBar } from "../../components";
 import { HEADER_HEIGHT } from "../../styles/contants";

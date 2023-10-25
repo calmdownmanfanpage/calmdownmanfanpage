@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { useContext } from "react";
 import { useFetchRecipientUser } from "../../hooks/useFetchRecipient";
 import { ChatContext } from "../../context/ChatContext";
@@ -14,7 +14,7 @@ function UserChat({ chat, user }) {
     markThisUserNotificationAsRead,
   } = useContext(ChatContext);
   const { recipientUser } = useFetchRecipientUser(chat, user);
-  const { latestMessage } = useFetchLatestMessage(chat);
+  const { latestMessage } = useFetchLatestMessage(chat) as any;
   const unreadNotifications = unreadNotificationsFunc(notifications);
   const thisUserNotifications = unreadNotifications?.filter(
     (noti) => noti.senderId === recipientUser?._id,

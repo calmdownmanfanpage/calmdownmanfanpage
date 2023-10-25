@@ -1,8 +1,7 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { useContext } from "react";
 import { ChatContext } from "../../context/ChatContext";
 import { AuthContext } from "../../context/AuthContext";
-import { HEADER_HEIGHT } from "../../styles/contants";
 
 function PotentialChats() {
   const { user } = useContext(AuthContext);

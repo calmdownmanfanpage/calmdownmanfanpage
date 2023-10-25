@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 import axios from 'axios';
-import FrontImg from '../img/front.jpg';
 
 export default function Page(props:any) {
   const [phraseData, setPhraseData] = useState<{

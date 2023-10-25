@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import { useEffect, useState } from "react";
-import { useNavigate, useLocation, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import { HEADER_HEIGHT } from "../../styles/contants";
 import Page from "./components/Page";
