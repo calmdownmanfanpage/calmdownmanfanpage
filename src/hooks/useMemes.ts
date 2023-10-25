@@ -21,6 +21,9 @@ export default function useMemes() {
       setIsLoading(true);
       setHasError(false);
       const { data } = await getMemes();
+      if (data.length === 0) {
+        throw new Error("보여드릴 짤이 더 이상 없습니다.");
+      }
       setMemes(memes ? [...memes, ...data] : data);
     } catch (e) {
       setHasError(true);
