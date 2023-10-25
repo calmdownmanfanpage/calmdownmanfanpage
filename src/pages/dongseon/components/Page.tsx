@@ -22,7 +22,7 @@ export default function Page(props:any) {
   // 페이지 정보 불러오기
   useEffect(()=>{
     (async ()=>{
-      const res = await axios.get(`http://localhost:3000/phrase?pageId=${pageId+1}`);
+      const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/phrase?pageId=${pageId+1}`);
       setPhraseData(res.data);
     })()
   },[]);
@@ -30,7 +30,7 @@ export default function Page(props:any) {
   // 데이터가 변경되면 서버DB 업데이트
   useEffect(()=>{
     (async() =>{
-      await axios.put('http://localhost:3000/phrase/update',{
+      await axios.put(`${import.meta.env.VITE_BACKEND_URL}/phrase/update`,{
         data:phraseData
       });
     })();
@@ -63,8 +63,8 @@ export default function Page(props:any) {
           // ㄴ> FrontImg
         link: {
           // [내 애플리케이션] > [플랫폼] 에서 등록한 사이트 도메인과 일치해야 함 (배포하고 수정하기)
-          mobileWebUrl: "http://localhost:5173",
-          webUrl: "http://localhost:5173",
+          mobileWebUrl: `${import.meta.env.VITE_FRONTEND_URL}`,
+          webUrl: `${import.meta.env.VITE_FRONTEND_URL}`,
         },
       },
       social: {
@@ -76,8 +76,8 @@ export default function Page(props:any) {
           title: "웹으로 보기",
           link: {
             // 명언집 링크
-            mobileWebUrl: "http://localhost:5173/dongseon/:pageId="+(shareId),
-            webUrl: "http://localhost:5173/dongseon/:pageId="+(shareId),
+            mobileWebUrl: `${import.meta.env.VITE_FRONTEND_URL}/dongseon/:pageId=${shareId}`,
+            webUrl: `${import.meta.env.VITE_FRONTEND_URL}/dongseon/:pageId=${shareId}`,
           },
         },
       ],

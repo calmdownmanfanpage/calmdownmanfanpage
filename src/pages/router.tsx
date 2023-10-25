@@ -4,7 +4,7 @@ import Layout from "../components/Layout";
 import PhrasePage from "./dongseon/PhrasePage";
 import MemePage from "./gangsan/MemePage";
 import { Login, Register, CheckLogin } from "../pages/dahyeon/index";
-import Games from "./jeongun/Games";
+import GamePage from "./jeongun/GamePage";
 
 
 export const path = {

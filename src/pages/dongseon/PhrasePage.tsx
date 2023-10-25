@@ -32,7 +32,7 @@ export default function PhrasePage() {
     // 서버에서 data 가져오기
     try{
       (async ()=>{
-        const res = await axios.get('http://localhost:3000/phrase');
+        const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/phrase`);
         setContentLimit(parseContentLimit(res.data.length));
       })();
     }catch(err){
