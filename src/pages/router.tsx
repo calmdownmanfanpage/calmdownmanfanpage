@@ -1,10 +1,11 @@
 import { createBrowserRouter } from "react-router-dom";
 import MainPage from "./main/MainPage";
 import Layout from "../components/Layout";
+import PhrasePage from "./dongseon/PhrasePage";
 import MemePage from "./gangsan/MemePage";
-import { Chat, Login, Register } from "../pages/dahyeon/index";
-import GamePage from "./jeongun/GamePage";
-import Making from "./dongseon/Making";
+import { Login, Register, CheckLogin } from "../pages/dahyeon/index";
+import Games from "./jeongun/Games";
+
 
 export const path = {
   root: "/",
@@ -31,20 +32,27 @@ export const router = createBrowserRouter([
       },
       {
         path: path.dahyeon,
-        element: <Chat />,
+        element: <CheckLogin page={<Login />} />,
       },
       {
         path: path.games,
         element: <GamePage />,
       },
-      { path: path.dongseon, element: <Making /> },
+      {
+        path: path.dongseon,
+        element: <PhrasePage />,
+      },
+      {
+        path: path.dongseon+"/:id",
+        element: <PhrasePage />,
+      },
       {
         path: path.login,
-        element: <Login />,
+        element: <CheckLogin page={<Login />} />,
       },
       {
         path: path.register,
-        element: <Register />,
+        element: <CheckLogin page={<Register />} />,
       },
     ],
   },
