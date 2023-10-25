@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { ChatContext } from "../../context/ChatContext";
 import { useFetchRecipientUser } from "../../hooks/useFetchRecipient";
@@ -19,6 +19,12 @@ function ChatBox() {
 
   const { recipientUser } = useFetchRecipientUser(currentChat, user);
   const [textMessage, setTextMessage] = useState(""); //채팅 글
+  const scroll = useRef();
+
+  //스크롤 내리기
+  useEffect(() => {
+    scroll.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+  }, [messages]);
 
   if (!recipientUser)
     return <StyledAlert>대화가 선택되지 않았습니다.</StyledAlert>;
@@ -34,6 +40,7 @@ function ChatBox() {
             <StyledMessageBox
               key={index}
               state={message?.senderId === user?._id ? "send" : "receive"}
+              ref={scroll}
             >
               <p>{message?.text}</p>
               <span>

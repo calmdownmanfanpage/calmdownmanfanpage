@@ -11,15 +11,20 @@ const ChatContextProvider = ({ children, user }) => {
   const [userChatError, setUserChatError] = useState();
   const [potentialChats, setPotentialChats] = useState([]); //아직 채팅안한 리스트
   const [currentChat, setCurrentChat] = useState(null);
-  const [messages, setMessages] = useState();
+  const [messages, setMessages] = useState(); //특정 채팅방안의 모든 메시지들
   const [isMessagesLoading, setIsMessagesLoading] = useState(false);
   const [messagesError, setMessagesError] = useState(); //가져온 메시지 에러
   const [sendTextMessageError, setSendTextMessageError] = useState(); //보내는 메시지 에러
-  const [newMessage, setNewMessage] = useState();
+  const [newMessage, setNewMessage] = useState(); //새로 보내는 메시지
   const [socket, setSocket] = useState(null);
-  const [onlineUsers, setOnlineUsers] = useState([]);
+  const [onlineUsers, setOnlineUsers] = useState([]); //로그인한 유저들
+  const [notifications, setNotifications] = useState([]); //메시지 알람
+  const [allUsers, setAllUsers] = useState([]); //메시지 알람
 
-  console.log("socekt: ", socket);
+  // console.log("onlineUsers : ", onlineUsers);
+  // console.log("currentChat : ", currentChat);
+  // console.log("messages : ", messages);
+  console.log("notifications : ", notifications);
 
   //initial socket
   useEffect(() => {
@@ -51,6 +56,7 @@ const ChatContextProvider = ({ children, user }) => {
   }, [newMessage]);
 
   //메시지 받기
+  //동시에 알람 받기
   useEffect(() => {
     if (socket === null) return;
 
@@ -58,6 +64,17 @@ const ChatContextProvider = ({ children, user }) => {
       if (currentChat?._id !== res.chatId) return;
 
       setMessages((prev) => [...prev, res]);
+    });
+
+    socket.on("getNotification", (res) => {
+      //현재 채팅방에 메시지 보낸 사람이 있으면
+      const isChatOpen = currentChat?.members.some((id) => id === res.senderId);
+
+      if (isChatOpen) {
+        setNotifications((prev) => [...prev, { ...res, isRead: true }]); //메시지 읽기로 변환
+      } else {
+        setNotifications((prev) => [...prev, res]);
+      }
     });
   }, [socket, currentChat]);
 
@@ -86,6 +103,7 @@ const ChatContextProvider = ({ children, user }) => {
       });
 
       setPotentialChats(pChats);
+      setAllUsers(response);
     };
 
     getUsers();
@@ -111,7 +129,7 @@ const ChatContextProvider = ({ children, user }) => {
     };
 
     getUserChats();
-  }, [user]);
+  }, [user, notifications]);
 
   //로그인한 유저의 메시지 기록 모두 가져오기
   useEffect(() => {
@@ -183,6 +201,61 @@ const ChatContextProvider = ({ children, user }) => {
     setUserChats((prev) => [...prev, response]);
   }, []);
 
+  //모든 알람 읽기 처리하기
+  const markAllNotificationsAsRead = useCallback((notifications) => {
+    const allReadNotifications = notifications.map((noti) => ({
+      ...noti,
+      isRead: true,
+    }));
+    setNotifications(allReadNotifications);
+  }, []);
+
+  //메시지 함에서 특정 알람 읽기 처리하기
+  //동시에 읽은 메시지 채팅 방 띄우기
+  const markNotificationAsRead = useCallback(
+    (n, userChats, user, notifications) => {
+      //열려고 하는 채팅방 찾기
+      const desiredChat = userChats.find((chat) => {
+        const chatMembers = [user._id, n.senderId];
+        const isDesiredChat = chat?.members.every((member) =>
+          chatMembers.includes(member),
+        );
+        return isDesiredChat;
+      });
+
+      //메시지함에서 읽기처리(알람 지우기)
+      const mNotifications = notifications.map((el) => {
+        if (n.senderId === el.senderId) return { ...n, isRead: true };
+        else return el;
+      });
+
+      updateCurrentChat(desiredChat);
+      setNotifications(mNotifications);
+    },
+    [],
+  );
+
+  //왼쪽 유저 채팅방에서 메시지 읽기 처리하기(알람 삭제)
+  const markThisUserNotificationAsRead = useCallback(
+    (thisUserNotifications, notifications) => {
+      const mNotifications = notifications.map((el) => {
+        let notification;
+
+        thisUserNotifications.forEach((n) => {
+          if (n.senderId === el.senderId) {
+            notification = { ...n, isRead: true };
+          } else {
+            notification = el;
+          }
+        });
+        return notification;
+      });
+
+      setNotifications(mNotifications);
+    },
+    [],
+  );
+
   return (
     <ChatContext.Provider
       displayName="Context Display Name"
@@ -199,6 +272,11 @@ const ChatContextProvider = ({ children, user }) => {
         messagesError,
         sendTextMessage,
         onlineUsers,
+        notifications,
+        allUsers,
+        markAllNotificationsAsRead,
+        markNotificationAsRead,
+        markThisUserNotificationAsRead,
       }}
     >
       {children}

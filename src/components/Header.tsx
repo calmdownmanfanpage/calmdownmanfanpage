@@ -4,6 +4,7 @@ import { path } from "../pages/router";
 import { useContext, useState } from "react";
 import { HEADER_HEIGHT, HEADER_MAX_WIDTH } from "../styles/contants";
 import { AuthContext } from "../context/AuthContext";
+import { Notification } from "./chat";
 
 export default function Header() {
   const [isOpened, setIsOpened] = useState(false);
@@ -25,12 +26,15 @@ export default function Header() {
           </StyledMenuWrapper>
           {/* 유저 정보가 있을 때 */}
           {user && (
-            <StyledAuthBox>
-              <span>{user?.name} 님</span>
-              <Link onClick={logoutUser} to={path.login}>
-                로그아웃
-              </Link>
-            </StyledAuthBox>
+            <>
+              <StyledAuthBox>
+                <span>{user?.name} 님</span>
+                <Link onClick={logoutUser} to={path.login}>
+                  로그아웃
+                </Link>
+                <Notification />
+              </StyledAuthBox>
+            </>
           )}
 
           {/* 유저 정보가 없을 때 */}
@@ -139,8 +143,9 @@ const StyledMenuButton = styled.button`
 `;
 
 const StyledAuthBox = styled.div`
-  width: 12.875rem;
+  width: 15rem;
   display: flex;
+  gap: 7px;
   align-items: center;
   justify-content: space-between;
   span {
