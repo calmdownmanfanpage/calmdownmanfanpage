@@ -1,31 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Do+Hyeon&family=Noto+Sans+KR&display=swap"
-      rel="stylesheet"
-    />
-    <title>calmdownman fanpage</title>
-  </head>
+<html lang="ko">
 
-  <body>
-    <div id="root"></div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta property="og:title" content="침착맨 팬 페이지">
+  <meta property="og:image" content="/icon_home.png">
+  <meta property="og:description" content="침착맨의 팬 페이지입니다.">
+  <link rel="icon" href="/icon_home.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Do+Hyeon&family=Noto+Sans+KR&display=swap"
+    rel="stylesheet" />
+  <title>calmdownman fanpage</title>
+</head>
 
-    <!-- Kakao API -->
-    <script 
-    src="https://t1.kakaocdn.net/kakao_js_sdk/2.4.0/kakao.min.js"
-    integrity="sha384-mXVrIX2T/Kszp6Z0aEWaA8Nm7J6/ZeWXbL8UpGRjKwWe56Srd/iyNmWMBhcItAjH" 
-    crossorigin="anonymous">
-  </script>
-    <script>
-      Kakao.init("fdbd5dd38623b20417f5098f3f0fe2e4"); // 사용하려는 앱의 JavaScript 키 입력
+<body>
+  <div id="root"></div>
+
+  <!-- Kakao API -->
+  <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.4.0/kakao.min.js"
+    integrity="sha384-mXVrIX2T/Kszp6Z0aEWaA8Nm7J6/ZeWXbL8UpGRjKwWe56Srd/iyNmWMBhcItAjH" crossorigin="anonymous">
     </script>
-    <!-- Kakao API -->
+  <script>
+    Kakao.init("fdbd5dd38623b20417f5098f3f0fe2e4"); // 사용하려는 앱의 JavaScript 키 입력
+  </script>
+  <!-- Kakao API -->
 
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+  <script type="module" src="/src/main.tsx"></script>
+</body>
+
 </html>
