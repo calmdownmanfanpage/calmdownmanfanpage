@@ -200,7 +200,6 @@ export default function MemePage() {
 | 메시지 보관함 | 메시지 보관함을 통해 바로 메시지 읽기 가능한 기능 구현 |
 | 메시지 모두 읽기 | 메시지를 모두 읽기 처리 할 수 있는 기능 구현(미수신 알람 모두 삭제) |
 
-### 5. 채팅 방 생성(Chat Room Page)
 
 ## 🔍 Overview
 
@@ -323,27 +322,13 @@ export default function MemePage() {
 
 2023.10.05 ~ 2023.10.26
 
-## 🏃 Steps to run
+## 🏃 아쉬웠던 점 및 목표
 
-### Backend
-
-```
-$ npm install
-$ node index.js
-```
-
-### Frontend
-
-```
-$ npm install
-$ npm run preview
-```
-
-## 🤼‍♂️Author
-
-![Untitled 13](https://github.com/calmdownmanfanpage/calmdownmanfanpage/assets/80450737/883793c8-4229-40cc-a57f-686edc54f6e6)
-
-
+1. husky 숙지하기 ( 여러명이서 같이 작업하다보니 merge작업 시 고충이 많았음)
+2. [socket.io](http://socket.io) 원리 이해하기 (기능 만들기에 급급하다보니 에러 발생 시 해결이 어려웠음…)
+3. typescript 발전시키기 (현재 모두 any로 설정되어있는데 typescript 공부 정리 후 천천히 발전시킬 예정)
+4. 디자인 발전시키기 (좀 더 UI, UX를 세련되게 업데이트해보기..지금은 너무 기본적임!)
+5. 직접 배포해보기( 프론트, 서버 배포 경험이 없음. 혼자서 처음부터 끝까지 해보는게 목표)
 ---
 
 ## 📝 License
