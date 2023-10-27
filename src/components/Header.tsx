@@ -13,18 +13,24 @@ export default function Header() {
 
   const { user, logoutUser } = useContext(AuthContext);
 
-
-
   return (
     <>
       <StyledHeader>
         <StyledContainer>
           <StyledImageLink to={path.root} />
           <StyledMenuWrapper $isOpened={isOpened}>
-            <StyledLink onClick={handleOpenMenu} to={path.meme}>모든 밈들의 신</StyledLink>
-            <StyledLink onClick={handleOpenMenu} to={path.games}>게임 모음집</StyledLink>
-            <StyledLink onClick={handleOpenMenu} to={path.dongseon}>명언집</StyledLink>
-            <StyledLink onClick={handleOpenMenu} to={path.dahyeon}>채팅방</StyledLink>
+            <StyledLink onClick={handleOpenMenu} to={path.meme}>
+              모든 밈들의 신
+            </StyledLink>
+            <StyledLink onClick={handleOpenMenu} to={path.games}>
+              게임 모음집
+            </StyledLink>
+            <StyledLink onClick={handleOpenMenu} to={path.dongseon}>
+              명언집
+            </StyledLink>
+            <StyledLink onClick={handleOpenMenu} to={path.dahyeon}>
+              채팅방
+            </StyledLink>
           </StyledMenuWrapper>
           {/* 유저 정보가 있을 때 */}
           {user && (
@@ -146,7 +152,7 @@ const StyledMenuButton = styled.button`
 `;
 
 const StyledAuthBox = styled.div`
-  width: 15rem;
+  width: 25%;
   display: flex;
   gap: 7px;
   align-items: center;
@@ -156,6 +162,9 @@ const StyledAuthBox = styled.div`
     cursor: pointer;
   }
   a {
+    display: inline-block;
+    width: 80px;
+    text-align: center;
     border-radius: 20px;
     border: none;
     outline: none;

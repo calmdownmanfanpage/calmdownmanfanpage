@@ -9,6 +9,8 @@ export const useFetchRecipientUser = (chat, user) => {
   //채팅방에서 로그인 유저를 제외한 나머지 상대방 유저 찾기
   const recipientId = chat?.members.find((id) => id !== user?._id);
 
+  console.log("chat", chat);
+  console.log("user", user);
   useEffect(() => {
     const getUser = async () => {
       if (!recipientId) return null;

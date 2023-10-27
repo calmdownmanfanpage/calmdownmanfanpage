@@ -21,10 +21,10 @@ const ChatContextProvider = ({ children, user }) => {
   const [notifications, setNotifications] = useState<any>([]); //메시지 알람
   const [allUsers, setAllUsers] = useState([]); //메시지 알람
 
-
   //initial socket
   useEffect(() => {
-    const newSocket = io(import.meta.env.VITE_SOCKET_URL);
+    // const newSocket = io(import.meta.env.VITE_SOCKET_URL);
+    const newSocket = io("http://localhost:4000");
     setSocket(newSocket);
 
     //cleanup function
@@ -41,6 +41,11 @@ const ChatContextProvider = ({ children, user }) => {
     socket.on("getOnlineUsers", (res) => {
       setOnlineUsers(res);
     });
+
+    return () => {
+      socket.off("addNewUser");
+      socket.off("getOnlineUsers");
+    };
   }, [socket]);
 
   //메시지 보내기
@@ -49,6 +54,10 @@ const ChatContextProvider = ({ children, user }) => {
     const recipientId = currentChat?.members.find((id) => id !== user?._id); //채팅 상대방 유저 찾기
 
     socket.emit("sendMessage", { ...newMessage, recipientId });
+
+    return () => {
+      socket.off("sendMessage");
+    };
   }, [newMessage]);
 
   //메시지 받기
@@ -72,6 +81,11 @@ const ChatContextProvider = ({ children, user }) => {
         setNotifications((prev) => [...prev, res]);
       }
     });
+
+    return () => {
+      socket.off("getMessage");
+      socket.off("getNotification");
+    };
   }, [socket, currentChat]);
 
   //로그인한 유저를 제외한 모든 유저정보를 불러와
@@ -90,8 +104,8 @@ const ChatContextProvider = ({ children, user }) => {
 
         if (userChats) {
           isChatCreated = userChats?.some((chat) => {
-            // return chat.members[0] === u._id || chat.members[1] === u._id;
-            return chat.members[1] === u._id;
+            return chat.members[0] === u._id || chat.members[1] === u._id;
+            // return chat.members[1] === u._id; //이렇게 하면 메시지를 받는 상대방이 채팅방을 클릭하면 왼쪽 유저리스트에서 유저가 삭제 안됨
           });
         }
 

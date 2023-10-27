@@ -3,14 +3,21 @@ import { HEADER_HEIGHT } from "../../styles/contants";
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import loginImg from "./img/loginImg.webp";
+import { ChatContext } from "../../context/ChatContext";
 
 function Login() {
   const { loginInfo, updateLoginInfo, loginUser, loginError, isLoginLoading } =
     useContext(AuthContext);
+  const { updateCurrentChat } = useContext(ChatContext);
   return (
     <StyledFormWrap>
       <SytledFormContainer>
-        <StyledForm onSubmit={loginUser}>
+        <StyledForm
+          onSubmit={(e) => {
+            loginUser(e);
+            updateCurrentChat(null);
+          }}
+        >
           <legend>로그인</legend>
 
           <input
@@ -121,7 +128,7 @@ const StyledImg = styled.div`
 `;
 
 const StyledAlert = styled.div`
-  font-size: 14px;
+  font-size: 12px;
   color: red;
   font-weight: bold;
   margin-top: 1rem;

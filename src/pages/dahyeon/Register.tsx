@@ -3,6 +3,7 @@ import { HEADER_HEIGHT } from "../../styles/contants";
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import registerImg from "./img/registerImg.webp";
+import { ChatContext } from "../../context/ChatContext";
 
 function Register() {
   const {
@@ -13,10 +14,17 @@ function Register() {
     isRegisterLoading,
   } = useContext(AuthContext);
 
+  const { updateCurrentChat } = useContext(ChatContext);
+
   return (
     <StyledFormWrap>
       <SytledFormContainer>
-        <StyledForm onSubmit={registerUser}>
+        <StyledForm
+          onSubmit={(e) => {
+            registerUser(e);
+            updateCurrentChat(null);
+          }}
+        >
           <legend>회원가입</legend>
           <input
             type="text"

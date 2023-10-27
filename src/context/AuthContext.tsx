@@ -1,5 +1,12 @@
-import { createContext, useState, useCallback, useEffect } from "react";
+import {
+  createContext,
+  useState,
+  useCallback,
+  useEffect,
+  useContext,
+} from "react";
 import { baseUrl, postRequest } from "../utils/services";
+import { ChatContext } from "./ChatContext";
 
 const AuthContext = createContext<any>(null); //context객체 생성
 const AuthContextProvider = ({ children }) => {
@@ -58,6 +65,7 @@ const AuthContextProvider = ({ children }) => {
   );
 
   //로그인
+
   const loginUser = useCallback(
     async (e) => {
       e.preventDefault();
