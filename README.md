@@ -154,6 +154,142 @@ export default function MemePage() {
 ```
 
 ### 침착맨 명언집 <<< 수정 요망
+# [침착맨 명언집]
+### 🔍 참고자료
+
+Page Animation :  https://codepen.io/ksccmp/pen/ExmMKxd
+
+Kakao API : https://developers.kakao.com/docs/latest/ko/message/js-link
+
+## 🏞️ 이미지
+
+
+- 페이지 에니메이션
+  
+![페이지 에니메이션](https://github.com/calmdownmanfanpage/calmdownmanfanpage/assets/132344704/bb38cd0a-df3c-4681-bd60-a8222cf47cb4)
+
+- 카카오 공유창
+
+![카카오 공유](https://github.com/calmdownmanfanpage/calmdownmanfanpage/assets/132344704/6fb1d688-5954-44e9-904d-8f7436cb78c4)
+
+- 카카오 메시지 창
+
+![공유 받음](https://github.com/calmdownmanfanpage/calmdownmanfanpage/assets/132344704/5b9c5d2f-6d81-4363-bd18-5e258f4fb67b)
+
+## 🧑‍💻 핵심 코드
+
+
+<aside>
+💡 Page Animation
+
+</aside>
+
+```css
+/* css (Book) */
+	width: 80vw;
+  height: 80vh;
+  z-index: -2;
+  perspective: 2500px;
+
+/* css (Page) */
+	width: 50%;
+  height: 100%;
+  position: absolute;
+  transition-timing-function: ease-out;
+/* css (Left Page) */
+  transform-origin: right center;
+/* css (Right Page) */
+  transform-origin: left center;
+	
+/* onclick */
+	transform: rotateY(180deg);
+```
+
+```jsx
+const rightPageClick = () => {
+	  if (contentId === contentLimit) return;
+	  setRightFlip(true);
+	  setEventPause(true);
+	  // 에니메이션이 끝나는 1초 후 내용 띄우기
+	  setTimeout(() => {
+		    setRightFlip(false);
+		    setEventPause(false);
+		    setContentId(contentId + 2);
+		    navigate(`/dongseon/${contentId}`);
+	  }, 1000);
+};
+```
+
+<aside>
+💡 Kakao API 사용하기
+
+</aside>
+
+```html
+<!-- index HTML -->
+<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.4.0/kakao.min.js"
+    integrity="sha384-mXVrIX2T/Kszp6Z0aEWaA8Nm7J6/ZeWXbL8UpGRjKwWe56Srd/iyNmWMBhcItAjH" crossorigin="anonymous">
+</script>
+<script>
+	// 카카오에서 도메인을 확인하기 때문에 API KEY는 노출되어도 상관없다.
+  Kakao.init("API KEY");
+</script>
+```
+
+```jsx
+// 카카오톡 공유 onclick
+window.Kakao.Share.sendDefault({
+  objectType: "feed",
+  content: {
+		// 메시지 제목
+    title: "침착맨 명언집",
+		// 명언집 내용
+    description: phraseData.phrase,
+		// 메시지에 표시되는 이미지
+    imageUrl:
+      "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fbv2xr0%2FbtqWWs0bA7q%2FJIV43Kh4gbKPxCF08H7i90%2Fimg.png",
+	  // 카카오에서 API를 사용하는 도메인을 확인한다.   
+		link: {
+      mobileWebUrl: `${import.meta.env.VITE_FRONTEND_URL}`,
+      webUrl: `${import.meta.env.VITE_FRONTEND_URL}`,
+    },
+  },
+	// 좋아요/공유 수 표시
+  social: {
+    likeCount: phraseData.likes,
+    sharedCount: phraseData.shared,
+  },
+  buttons: [
+    {
+      title: "웹으로 보기",
+			// 메시지에서 명언집으로 가는 링크
+      link: {
+        mobileWebUrl: `${import.meta.env.VITE_FRONTEND_URL}/dongseon/:pageId=${shareId}`,
+        webUrl: `${import.meta.env.VITE_FRONTEND_URL}/dongseon/:pageId=${shareId}`,
+      },
+    },
+  ],
+});
+```
+
+<aside>
+💡 링크에서 받아온 페이지 열기
+
+</aside>
+
+```jsx
+import { useNavigate, useParams } from "react-router-dom";
+
+const navigate = useNavigate();
+const params = useParams();
+
+// URL이 변경되면 contentID를 URL params로 변경한다.
+useEffect(()=>{
+    if(params.id){
+      setContentId(Number(params.id));
+    }
+}, [params]);
+```
 
 ### 침착맨 게임 ?<<< 수정 요망
 
